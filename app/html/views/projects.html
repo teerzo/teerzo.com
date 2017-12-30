@@ -1,0 +1,49 @@
+<div class="row projects-wrapper" > 
+    <div class="row content"> 
+        <div class="col-xs-12 content-package-search">
+            <label> Package search </label>
+            <input class="form-control" placeholder="Search for shitty projects errors here">
+        </div>
+        <div class="col-xs-12 projects"> 
+            <div class="col-xs-12 project" ng-repeat="item in projects">
+                <h1> PROJECT </h1>
+                <div project="item"> </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 content-packages">
+            <div class="col-xs-12 content-package" ng-repeat="package in packages">
+                <div class="content-package-collapse" ng-click="package.collapse = !package.collapse"> 
+                    <div ng-show="package.collapse" class="glyphicon glyphicon-triangle-bottom"></div>
+                    <div ng-hide="package.collapse" class="glyphicon glyphicon-triangle-top"></div>
+                </div>
+                <h2 class="content-package-name"> {{package.name}} </h2>
+                <h2 class="content-package-number"> {{package.entries.length}} </h2>
+                <div ng-hide="package.collapse" class="col-xs-12 content-package-collapse-div">
+                    <div class="col-xs-12 col-sm-4 content-package-entry" ng-repeat="entry in package.entries"> 
+                        <a ng-href="{{entry.url}}" target="_blank">
+                            <img class="" ng-src="{{entry.image}}"> 
+                        </a>
+                        <p> {{entry.name}} - {{entry.description}} </p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-xs-12 content-package-angular">
+                <p> Three JS Shit </p>
+            </div>
+            <div class="col-xs-12 content-package-angular">
+                <p> Angular Shit </p>
+            </div>
+            <div class="col-xs-12 content-package-angular">
+                <p> Bower Shit </p>
+            </div>
+            <div class="col-xs-12 content-package-angular">
+                <p> Grunt Shit </p>
+            </div>
+            <div class="col-xs-12 content-package-angular">
+                <p> Gulp Shit </p>
+            </div>-->
+
+        </div>
+    </div>
+</div>

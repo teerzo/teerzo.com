@@ -3,89 +3,382 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
 
 body {
   padding: 0;
+  margin: 0;
+   background-color: #000000;
+   font-family: Futura, Futura-Medium, "Futura Medium", "Century Gothic", CenturyGothic, "Apple Gothic", AppleGothic, "URW Gothic L", "Avant Garde", sans-serif;
+   color: #000000;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.shadow {
+  -webkit-box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.3);
+-moz-box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.3);
+box-shadow: 0px 0px 9px 3px rgba(0,0,0,0.3);
+}
+.break {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.marg-0 {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.image  {
+  width: 100%;
+  height: auto;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 10px;
-
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+::-webkit-scrollbar-track
+{
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
+::-webkit-scrollbar-thumb
+{
+  background: rgba(255, 255, 255, 1.0);
 }
+.wrapper {
+  position: absolute;
+  z-index: 0;
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-}
+  
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+ 
 
-  p + h4 {
-    margin-top: 28px;
-  }
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+    position: absolute;
+    z-index: 2;
+    
+        box-sizing: border-box;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    height: 70px;
+
+    background: rgba(0,0,0,0.3);
+
+    
+    text-align: center;
+
+
+    .inner {
+          // box-sizing: border-box;
+      margin: 0 auto;
+  max-width: 1024px;
+  padding-top: 10px;
+    // padding-left: 10px;
+    // padding-right: 10px;
+
+    }
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    .header-logo {
+      border: 1px solid #FFFFFF;
+
+      display: inline-block;
+      background-color: #FFFFFF;
+
+      width: 100%;
+      // max-width: 1024px;
+      // max-width: 200px;
+      height: 50px;
+
+      margin: 0 auto;
+
+      font-weight: 700;
+      font-size: 1.3em;
+      padding-top: 10px;
+
+      // background-color: #FFFFFF;
+      // border-radius: 0px 0px 10px 0px;
+     
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      // @media only screen and (max-width : 480px) {
+      //   padding: 5px;
+      //   font-size: 0.7em;
+      //   padding-top: 15px;
+      // }
+
+    }
+    // .header-logo.active {
+    //     max-width: 1024px;
+      
+    //   // max-width: 100px;
+    //   @media only screen and (max-width : 480px) {
+
+
+    //     // max-width: 100px;
+
+    //     font-size: 1.0em;
+    //     padding-top: 10px;
+    //   }
+    // }
+    .btn {
+      border: 1px solid #FFFFFF;
+
+      display: inline-block;
+
+
+      width: 100%;
+      max-width: 75px;
+      height: 50px;
+
+      font-size: 1.3em;
+      padding-top: 10px;
+
+      // background-color: #FFFFFF;
+      border-radius: 0px 0px 10px 0px;
+     
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      // .btn-inner {
+      //   background-color: #AAAAAA;
+      //   width: 150px;
+      //   text-align: left;
+      // }
+      @media only screen and (max-width : 480px) {
+        max-width: 50px;
+        padding: 5px;
+        font-size: 0.7em;
+        padding-top: 15px;
+      }
+    }
+    .btn.active {
+      max-width: 100px;
+      @media only screen and (max-width : 480px) {
+        max-width: 100px;
+        font-size: 1.0em;
+        padding-top: 10px;
+      }
+    }
+    .btn-1 {
+      z-index: 2;
+      background-color: #FFFFFF;
+      color: #000000;
+    }
+    .btn-2 {
+      z-index: 3;
+      background-color: #993333;
+      color: #FFFFFF;
+    }
+    .btn-3 {
+      z-index: 4;
+      background-color: #339933;
+      color: #FFFFFF;
+    }
+    .btn-4 {
+      z-index: 5;
+      background-color: #333399;
+      color: #FFFFFF;
+    }
   }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
+  .main {
+    position: absolute;
+    z-index: 1;
+    
+        box-sizing: border-box;
+
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+
+    // padding-top: 70px;
+
+    
+
+    background-color: #000000;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+
+    .inner {
+ 
+      margin: 0 auto;
+      max-width: 1024px;
+    }
+    .main-header { 
+      margin-bottom: 10px;
+
+      padding-left: 5px;
+      padding-right: 5px;
+
+      .logo {
+
+        height: 50px;
+        background-color: #FFFFFF;
+        text-align: center;
+
+        padding-top: 10px;
+        
+        a {
+          font-weight: 700;
+          font-size: 1.3em;
+        }
+      }
+    }
+    .header-logo {
+      border: 1px solid #FFFFFF;
+
+      display: inline-block;
+      
+
+      width: 100%;
+      // max-width: 1024px;
+      // max-width: 200px;
+      height: 50px;
+
+      text-align: center;
+      margin: 0 auto;
+
+      
+      // padding-top: 10px;
+      margin-bottom: 10px;
+      padding-left: 5px;
+      padding-right: 5px;
+
+      // background-color: #FFFFFF;
+      // border-radius: 0px 0px 10px 0px;
+     
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      // @media only screen and (max-width : 480px) {
+      //   padding: 5px;
+      //   font-size: 0.7em;
+      //   padding-top: 15px;
+      // }
+
+      .logo {
+        
+      }
+
+    }
+    .btn {
+      background-color: #33AA33;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      @media only screen and (max-width : 480px) {
+        font-size: 1.1em;
+      }
+    }
+    .btn:hover {
+       background-color: #333333;
+      color: #FFFFFF;
+    }
+    .btn-twitter {
+      background-color:#0084b4;
+    }
+    .btn:hover {
+    }
+    .btn-soundcloud {
+      background-color: #f50;
+    }
+
+    .section:focus { outline: none !important; }
+    .section { 
+      
+      min-height: 380px;
+      max-height: 380px;
+      height: 380px;
+      overflow: hidden;
+
+      padding-left: 5px;
+      padding-right: 5px;
+
+      margin-bottom: 5px;
+
+      .section-header {
+        height: 50px;
+        background-color: #FFFFFF;
+        
+        padding: 10px;
+
+        color: #000000;
+        font-size: 1.8em;
+        font-weight: 700;
+
+        border-width: 0px 0px 0px 0px;
+        border-color: #000000;
+        border-style: solid;
+      }
+      .section-content {
+        // border: 1px solid red;
+        background-color: #FFFFFF;
+        min-height: 330px;
+       
+        text-align: center;
+
+        p {
+          font-size: 1.5em;
+          @media only screen and (max-width : 480px) {
+            font-size: 1.1em;
+          }
+        }
+        .wrapper-canvas {
+          width: 100%;
+          height: 330px;
+          // height: 250px;
+        }
+      }
+    }
+    #section-about {
+      .section-content {
+        padding-top: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+
+        .image {
+          max-width: 100px;
+        }
+      }
+    }
+    #section-music {
+      .section-header {
+        background-color: #f50;
+        background-image: linear-gradient(0deg,#f70 0,#f30);
+        color: #FFFFFF;
+      }
+    }
+  }
+  .footer {
+    position: absolute;
+    z-index: 1;
+    
+    
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    height: 100px;
+
+    background-color: #000033;
   }
 }
