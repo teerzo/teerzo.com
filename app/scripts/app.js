@@ -89,12 +89,12 @@ websiteApp.run(function($rootScope, $http, $location) {
   var initialize = function() {
     // console.log('Teerzo app initialize()');
 
-     var feed = new Instafeed({
-        // get: 'tagged',
-        // tagName: 'awesome',
-        clientId: '24719bfeb6514fae8c14eec8430b3e1b'
-    });
-    feed.run();
+    //  var feed = new Instafeed({
+    //     // get: 'tagged',
+    //     // tagName: 'awesome',
+    //     clientId: '24719bfeb6514fae8c14eec8430b3e1b'
+    // });
+    // feed.run();
 
     LoadProjects();
   };
