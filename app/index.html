@@ -116,12 +116,36 @@
             Building:
           </div>
           <div class="section-content">
-            <div class="wrapper-canvas" teerzo-main=""> 
+            <!-- <div class="wrapper-canvas">  -->
+              <div class="wrapper-canvas" teerzo-main=""> 
               <!--<canvas width="100%" height="250px" style="width: 100%; height: 250px;"></canvas>-->
             </div>
           </div>
           
         </div>
+        <div id="section-iceskating" ng-click="gaEvent('iceskating', 'section')" class="col-xs-12 col-sm-6 section">
+          <div class="section-header"> 
+           Ice-skating:
+         </div>
+         <div class="section-content">
+           <div class="wrapper-canvas-iceskating"> 
+
+           </div>
+         </div>
+         
+       </div>
+
+        <div id="section-human" ng-click="gaEvent('human', 'section')" class="col-xs-12 col-sm-6 section">
+          <div class="section-header"> 
+           Human face:
+         </div>
+         <div class="section-content">
+          <iframe class="shadow" width="100%" height="380" scrolling="no" src="http://teerzo.github.io/Andrew/" frameborder="0"></iframe>
+         </div>
+         
+       </div>
+
+        
         <!--<div id="section-games" class="col-xs-12 col-sm-6 section">
           <div class="section-header"> 
             Playing:
@@ -137,7 +161,7 @@
           </div>
         </div> -->
       </div>
-      
+      <div class="col-xs-12 divider"></div>
       <!--<div class="footer">
         
       </div>-->
@@ -187,6 +211,7 @@
   <script src="scripts/controllers/about.js"></script>
   <script src="scripts/controllers/projects.js"></script>
   <script src="scripts/controllers/frontend.js"></script>
+  <script src="scripts/controllers/iceskating.js"></script>
   <!-- endbuild -->
 </body>
 
