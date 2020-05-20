@@ -1,0 +1,14 @@
+
+
+.link {
+    text-decoration: none;
+    margin-right: 10px;
+    color: #aaaaaa;
+
+    border-bottom: 1px solid transparent;
+
+    &.active {
+        color: #ffffff;
+        border-bottom: 1px solid #ffffff;
+    }
+}
