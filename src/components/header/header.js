@@ -13,6 +13,8 @@ import cx from 'classnames';
 
 import Link from '../link';
 
+import logo from '../../images/logo.png';
+
 import './header.scss';
 
 export default function Header(props) {
@@ -28,6 +30,7 @@ export default function Header(props) {
 
     return (
         <div className={cmpClasses}>
+            <img className="logo" src={logo} />
             <Link path="/"> <h3> teerzo </h3> </Link>
 
 

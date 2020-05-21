@@ -12,7 +12,6 @@ export default function Projects(props) {
 
     return (
         <div className={cmpClasses}>
-            <h3> Projects </h3>
             <p> test </p>
             <p> test </p>
             <p> test </p>
