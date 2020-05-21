@@ -9,6 +9,11 @@
     height: 100%;
     overflow: hidden;
 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
     img {
         width: 100%;
         height: auto;
@@ -20,21 +25,11 @@
             filter: blur(4px);
         }
     }
-
-    .overlay {
+    .loader {
         position: absolute;
         z-index: 1;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
+        transform: translate(-50%,-50%);
 
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-    .loader {
         border: 8px solid #333333; /* Light grey */
         border-top: 8px solid #FFFFFF; /* Blue */
         border-radius: 50%;

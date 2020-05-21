@@ -4,30 +4,26 @@ import cx from 'classnames';
 import './image.scss';
 
 export default function CmpImage(props) {
-    const [overlay, setOverlay] = useState(true);
     const [loaded, setLoaded] = useState(false);
     const [src, setSrc] = useState(null);
 
     useEffect(() => {
         if (props.preview) {
-            setSrc(props.preview)
-        }
+            setSrc(props.preview);
+            console.log('image props', props);
+            const image = new Image();
+            image.src = props.src;
 
-        console.log('image props', props);
-        const image = new Image();
-        image.src = props.src;
-        // image.src = props.src;
-        // const image = new Image();
-        // image.src = props.src;
-
-        image.onload = () => {
-            setTimeout(() => {
-                setLoaded(true);
-                setSrc(props.src);
+            image.onload = () => {
                 setTimeout(() => {
-                    setOverlay(false);
-                }, 500);
-            }, 1000);
+                    setLoaded(true);
+                    setSrc(props.src);
+                }, 1000);
+            }
+        }
+        else {
+            setSrc(props.src);
+            setLoaded(true);
         }
     }, [])
 
@@ -36,25 +32,14 @@ export default function CmpImage(props) {
         { 'loading': !loaded }
     )
 
-    const overlayClasses = cx(
-        'overlay',
-        { 'loading': !loaded }
-    )
-
     return (
         <div className={cmpClasses}>
             <img src={src} />
-            {overlay ?
-                <div className={overlayClasses}>
-                    {loaded ?
-                        <> </>
-                        :
-                        <div className="loader"> </div>
-                    }
-                </div>
-                : <> </>
+            {loaded ?
+                <> </>
+                :
+                <div className="loader"> </div>
             }
-            {/* <img src={src} /> */}
         </div>
     );
 }
