@@ -12,7 +12,6 @@ export default function RouteProjects(props) {
 
     return (
         <div className={routeClasses}>
-            <h3> Projects </h3>
             <Projects />
         </div>
     );

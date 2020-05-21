@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 
-// import About from '../../components/projects';
+import About from '../../components/about';
 
 export default function RouteAbout(props) {
 
@@ -12,8 +12,7 @@ export default function RouteAbout(props) {
 
     return (
         <div className={routeClasses}>
-            <h3> About </h3>
-            {/* <Projects /> */}
+            <About />
         </div>
     );
 }
