@@ -18,7 +18,7 @@ export default function CmpImage(props) {
                 setTimeout(() => {
                     setLoaded(true);
                     setSrc(props.src);
-                }, 1000);
+                }, 500);
             }
         }
         else {
