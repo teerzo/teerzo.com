@@ -1,17 +1,15 @@
-body,html {
+body,
+html {
   height: 100%;
+  background-color: #333333;
 }
 #root {
   height: 100%;
-
 }
 .App {
   height: 100%;
   overflow: hidden;
 }
-
-
-
 
 body {
   margin: 0;
