@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 
-import Projects from '../../components/projects';
+// import About from '../../components/projects';
 
-export default function RouteProjects(props) {
+export default function RouteHome(props) {
 
     const routeClasses = cx(
         'route',
@@ -12,8 +12,8 @@ export default function RouteProjects(props) {
 
     return (
         <div className={routeClasses}>
-            <h3> Projects </h3>
-            <Projects />
+            <h3> Home </h3>
+            {/* <Projects /> */}
         </div>
     );
 }

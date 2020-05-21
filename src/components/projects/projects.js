@@ -7,11 +7,11 @@ import './projects.scss';
 export default function Projects(props) {
 
     const cmpClasses = cx(
-        'link',
+        'projects',
     )
 
     return (
-        <div>
+        <div className={cmpClasses}>
             <h3> Projects </h3>
             <p> test </p>
             <p> test </p>

@@ -13,32 +13,31 @@ import {
 } from "react-router-dom";
 
 import Wrapper from './components/wrapper';
-
-import Projects from './components/projects';
 import Header from './components/header';
+
+import RouteHome from './routes/home';
+import RouteProjects from './routes/projects';
+import RouteAbout from './routes/about';
+
 
 // import Router from './components/router';
 
 function App() {
-  
-  return (  
+
+  return (
     <div className="App">
       <Router>
         <Wrapper>
-          <h3> WRAPPER </h3>
           <Header />
-
-
           <Switch>
             <Route path="/about">
-              <h3>About </h3>
+              <RouteAbout />
             </Route>
-
             <Route path="/projects">
-              <Projects />
+              <RouteProjects />
             </Route>
             <Route path="/">
-              <h3>Home  </h3>
+              <RouteHome />
             </Route>
 
           </Switch>
