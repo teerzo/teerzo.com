@@ -5,6 +5,8 @@ import cx from 'classnames';
 import imgProfile from '../../images/profile.png';
 import imgProfileSmall from '../../images/profile-small.png';
 
+import Image from '../image';
+
 import './about.scss';
 
 export default function About(props) {
@@ -26,9 +28,14 @@ export default function About(props) {
                 :
                 <img className="profile" src={imgProfileSmall} />
             } */}
+            <div className="profile-parent">
+                <Image src={imgProfile} preview={imgProfileSmall}/>
 
-            <img className="profile" src={imgProfile} />
-            <img className="profile" src={imgProfileSmall} />
+            </div>
+
+
+            {/* <img className="profile" src={imgProfile} />
+            <img className="profile" src={imgProfileSmall} /> */}
             <p> About </p>
 
         </div>
