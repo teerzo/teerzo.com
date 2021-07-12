@@ -8,7 +8,7 @@ import Page from './components/page';
 function App() {
   return (
     <>
-      <Background />
+      {/* <Background /> */}
       <div className="App">
         <Nav />
 
