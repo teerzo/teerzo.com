@@ -8,55 +8,50 @@ import Page from './components/page';
 function App() {
   return (
     <>
-      {/* <Background /> */}
       <div className="App">
+
+
+        {/* <Background /> */}
         <Nav />
+        <div className="container">
 
-
-        {/* <Page>
-        <div className="page-flex">
-          <div className="page-vertical">
-            <div> TEERZO </div>
-          </div>
+          <Page>
+            <div className="page-padding page-layout-centered">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
+                Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
+                Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
+                Integer dapibus elementum metus, at dictum massa tempus ut.
+                Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
+                Pellentesque quis vehicula sapien. Quisque non eros justo.
+        </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
+                Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
+                Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
+                Integer dapibus elementum metus, at dictum massa tempus ut.
+                Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
+                Pellentesque quis vehicula sapien. Quisque non eros justo.
+        </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
+                Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
+                Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
+                Integer dapibus elementum metus, at dictum massa tempus ut.
+                Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
+                Pellentesque quis vehicula sapien. Quisque non eros justo.
+        </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
+                Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
+                Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
+                Integer dapibus elementum metus, at dictum massa tempus ut.
+                Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
+                Pellentesque quis vehicula sapien. Quisque non eros justo.
+        </p>
+            </div>
+          </Page>
         </div>
-      </Page> */}
-
-        <Page>
-          <div className="page-padding">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
-              Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
-              Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
-              Integer dapibus elementum metus, at dictum massa tempus ut.
-              Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
-              Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
-              Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
-              Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
-              Integer dapibus elementum metus, at dictum massa tempus ut.
-              Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
-              Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
-              Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
-              Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
-              Integer dapibus elementum metus, at dictum massa tempus ut.
-              Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
-              Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
-              Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
-              Sed fringilla sit amet sem in lobortis. Morbi urna lectus, feugiat et mi vel, porttitor posuere tortor.
-              Integer dapibus elementum metus, at dictum massa tempus ut.
-              Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
-              Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
-          </div>
-        </Page>
       </div>
     </>
   );

@@ -1,18 +1,11 @@
 .nav {
-    background-color: #003034;
-    // max-width: 1000px;
-    // position: sticky;
-    // z-index: 1;
-    // top: 0px;
-
-    position: fixed;
+    display: block;
+    height: 4rem;
     z-index: 100;
-    top: 0px;
-    right: 0px;
-    //   bottom: 0px;
-    left: 0px;
-    width: 100%;
-
+    flex-shrink: 0;
+  
+    background-color: #003034;
+  
     .nav-links {
         // max-width: 800px;
         // outline: red 1px solid;
