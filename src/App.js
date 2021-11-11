@@ -11,10 +11,9 @@ function App() {
       <div className="App">
 
 
-        {/* <Background /> */}
+        <Background />
         <Nav />
         <div className="container">
-
           <Page>
             <div className="page-padding page-layout-centered">
               <p>
@@ -24,7 +23,7 @@ function App() {
                 Integer dapibus elementum metus, at dictum massa tempus ut.
                 Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
                 Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
+              </p>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
                 Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
@@ -32,7 +31,7 @@ function App() {
                 Integer dapibus elementum metus, at dictum massa tempus ut.
                 Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
                 Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
+              </p>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
                 Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
@@ -40,7 +39,7 @@ function App() {
                 Integer dapibus elementum metus, at dictum massa tempus ut.
                 Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
                 Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
+              </p>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus facilisis felis, ut vestibulum orci facilisis ac.
                 Nunc facilisis sagittis tortor, eu finibus ipsum interdum at. Mauris ultrices cursus condimentum.
@@ -48,7 +47,7 @@ function App() {
                 Integer dapibus elementum metus, at dictum massa tempus ut.
                 Nunc imperdiet egestas purus, nec ultricies purus accumsan eget.
                 Pellentesque quis vehicula sapien. Quisque non eros justo.
-        </p>
+              </p>
             </div>
           </Page>
         </div>

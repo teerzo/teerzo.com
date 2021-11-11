@@ -14,7 +14,7 @@
     margin: 0 auto;
     // padding-top: 64px;
 
-    background-color: #333333;
+    // background-color: #333333;
 
   
     .page-padding {
@@ -39,6 +39,8 @@
     .page-layout-centered {
         max-width: 1000px;
         margin: 0 auto;
+
+        background-color: rgba($color: #333333, $alpha: 0.5);
     }
     
 }
