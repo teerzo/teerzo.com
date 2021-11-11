@@ -52,7 +52,7 @@ body {
   width: 100%;
   height: 100%;
 
-  background: rgba($color: #000000, $alpha: 0.0);
+  background: rgba($color: #000000, $alpha: 0);
 }
 
 .App {
@@ -70,7 +70,6 @@ body {
   overflow: hidden;
   height: 100%;
 }
-
 
 .App-logo {
   height: 40vmin;
@@ -107,16 +106,24 @@ body {
   }
 }
 
-
 .App::-webkit-scrollbar {
   width: 1em;
 }
- 
+
 .App::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
+
 .App::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+
+p,
+h1,
+h2,
+h3 {
+  &.center {
+    text-align: center;
+  }
 }
