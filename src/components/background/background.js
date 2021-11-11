@@ -78,10 +78,7 @@ function Box(props) {
         const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
         setRotateDir(rDir);
 
-        ref.current.position.x = rand(-10, 10);
-        ref.current.position.y = rand(-10, -8);
-        ref.current.position.z = rand(-10, 0);
-
+        reset();
     }, [])
 
     // Subscribe this component to the render-loop, rotate the mesh every frame
@@ -96,13 +93,20 @@ function Box(props) {
 
         let lSpan = lifeSpan + 1.0 * delta;
         if (lSpan >= maxLifeSpan) {
-            lSpan = 0;
-            ref.current.position.x = rand(-10, 10);
-            ref.current.position.y = rand(-10, -8);
-            ref.current.position.z = rand(-10, 0);
+            reset();
+        } 
+        else {
+            setLifeSpan(lSpan);
         }
-        setLifeSpan(lSpan);
     })
+
+    function reset() {
+        ref.current.position.x = rand(-10, 10);
+        ref.current.position.y = rand(-20, 5);
+        ref.current.position.z = rand(-10, 0);
+        setLifeSpan(0);
+    }
+
     // Return the view, these are regular Threejs elements expressed in JSX
     return (
         <mesh
@@ -113,7 +117,7 @@ function Box(props) {
             onPointerOver={(event) => hover(true)}
             onPointerOut={(event) => hover(false)}>
             <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+            <meshNormalMaterial />
         </mesh>
     )
 }
