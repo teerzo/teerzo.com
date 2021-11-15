@@ -7,6 +7,8 @@ import useWindowSize from '../../helpers/useWindowSize';
 import './nav.scss';
 import { Link } from 'react-router-dom';
 
+import NavLink from '../nav-link';
+
 import { FaStream, FaBars, FaTimes } from 'react-icons/fa';
 
 
@@ -45,7 +47,7 @@ export default function Nav(props) {
                             <div className="nav-menu">
 
                                 <NavLink to='/'> HOME </NavLink>
-                                <br/>
+                                <br />
                                 <NavLink to='/projects'> PROJECTS </NavLink>
                                 <NavLink to="/about"> ABOUT </NavLink>
 
@@ -80,17 +82,6 @@ function TitleLink({ to, ...props }) {
     )
 }
 
-function NavLink({ to, ...props }) {
-
-    return (
-        <>
-            <div className="nav-link">
-                <Link to={to}> {props.children} </Link>
-            </div>
-        </>
-    )
-
-}
 
 function FakeSpace() {
     return (
@@ -128,10 +119,7 @@ function Hamburger({ onChange, ...props }) {
             {menuOpen ?
                 <FaTimes className="icon" />
                 :
-                mouseOver ?
-                    <FaStream className="icon" />
-                    :
-                    <FaBars className="icon" />
+                <FaBars className="icon" />
             }
 
         </div>

@@ -1,5 +1,3 @@
-
-
 import Nav from '../../components/nav';
 import Page from '../../components/page';
 

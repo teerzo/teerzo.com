@@ -1,10 +1,12 @@
 .nav {
+    position: relative;
+    z-index: 10;
     display: block;
     height: 4rem;
     z-index: 100;
     flex-shrink: 0;
 
-    background-color: #003034;
+    background-color: rgba($color: #003034, $alpha: 0.9);
 
     .nav-links {
         // max-width: 800px;

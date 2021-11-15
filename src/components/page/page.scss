@@ -12,16 +12,27 @@
     font-weight: 300;
     color: #ffffff;
     margin: 0 auto;
+    pointer-events: none;
+
+    // border: 1px solid green;
+
     // padding-top: 64px;
 
     // background-color: #333333;
 
-  
     .page-padding {
         padding: 20px;
         height: 100%;
         position: relative;
         overflow-y: auto;
+
+        pointer-events: none;
+
+        // border: 1px solid red;
+
+        & > * {
+            pointer-events: all;
+        }
 
         body::-webkit-scrollbar {
             width: 1em;
@@ -42,5 +53,4 @@
 
         // background-color: rgba($color: #333333, $alpha: 0.5);
     }
-    
 }

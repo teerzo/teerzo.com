@@ -6,11 +6,21 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import './background.scss';
 
 export default function Background(props) {
+    function handleClick(event) {
+        console.log('background parent click', event.target);
+
+    }
+
+    function handleCanvasClick(event) {
+        console.log('canvas handle click', event.target);
+
+    }
+
 
     return (
-        <>
+        <div className="background-parent" onClick={handleClick}>
             <div id="background" className="background">
-                <Canvas>
+                <Canvas gl={{ antialias: true }} onClick={handleCanvasClick}>
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />
                     <Box position={[-1.2, 0, 0]} />
@@ -40,7 +50,8 @@ export default function Background(props) {
                     <Box position={[1.2, 0, 0]} />
                 </Canvas>
             </div>
-        </>
+            {props.children}
+        </div>
     )
 }
 
@@ -63,21 +74,7 @@ function Box(props) {
     const [clicked, click] = useState(false)
 
     useEffect(() => {
-        const mLifeSpan = rand(10, 20);
-        setMaxLifeSpan(mLifeSpan);
-
-        const mSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
-        setMoveSpeed(mSpeed);
-
-        const mDir = [rand(-1, 1), rand(1, 1), rand(-1, 1)];
-        setMoveDir(mDir);
-
-        const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
-        setRotateSpeed(rSpeed);
-
-        const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
-        setRotateDir(rDir);
-
+       
         reset();
     }, [])
 
@@ -94,7 +91,7 @@ function Box(props) {
         let lSpan = lifeSpan + 1.0 * delta;
         if (lSpan >= maxLifeSpan) {
             reset();
-        } 
+        }
         else {
             setLifeSpan(lSpan);
         }
@@ -104,7 +101,38 @@ function Box(props) {
         ref.current.position.x = rand(-10, 10);
         ref.current.position.y = rand(-20, 5);
         ref.current.position.z = rand(-10, 0);
+
+        const mLifeSpan = rand(10, 20);
+        setMaxLifeSpan(mLifeSpan);
+
+        const mSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+        setMoveSpeed(mSpeed);
+
+        const mDir = [rand(-1, 1), rand(1, 1), rand(-1, 1)];
+        setMoveDir(mDir);
+
+        const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+        setRotateSpeed(rSpeed);
+
+        const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
+        setRotateDir(rDir);
+
         setLifeSpan(0);
+    }
+
+    function handleMeshClick(event) {
+        click(!clicked);
+
+
+        // const mSpeed = [rand(1, 3), rand(1, 3), 1];
+        const mSpeed = [rand(5, 10), rand(5, 10), 20];
+        // const mSpeed = [0,0,10];
+        setMoveSpeed(mSpeed);
+
+        // const mDir = [rand(-5, 5), rand(5, 5), rand(1, 5)];
+        const mDir = [rand(-5, 5), rand(5, 5), -1];
+        // const mDir = [0,0,-1];
+        setMoveDir(mDir);
     }
 
     // Return the view, these are regular Threejs elements expressed in JSX
@@ -113,11 +141,12 @@ function Box(props) {
             {...props}
             ref={ref}
             scale={clicked ? 1.5 : 1}
-            onClick={(event) => click(!clicked)}
+            onClick={handleMeshClick}
             onPointerOver={(event) => hover(true)}
             onPointerOut={(event) => hover(false)}>
             <boxGeometry args={[1, 1, 1]} />
-            <meshNormalMaterial />
+            <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+            {/* <meshNormalMaterial /> */}
         </mesh>
     )
 }
