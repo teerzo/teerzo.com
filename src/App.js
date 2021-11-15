@@ -5,14 +5,16 @@ import './App.scss';
 import Background from './components/background';
 // import Page from './components/page';
 
+
 import Router from './components/router';
 
 export default function App() {
   return (
     <>
       <div className="App">
-        <Background />
-        <Router />
+        <Background>
+          <Router />
+        </Background>
       </div>
     </>
   );

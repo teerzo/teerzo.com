@@ -1,12 +1,9 @@
-
-
 import Nav from '../../components/nav';
 import Page from '../../components/page';
 
 export default function Projects() {
     return (
         <>
-           
             <Nav />
             <div className="container">
                 <Page>
