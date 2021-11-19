@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
-export default function CubeWall(props) {
+export default function SceneHome(props) {
 
     const [cubes, setCubes] = useState([]);
 
@@ -34,7 +34,7 @@ export default function CubeWall(props) {
                 const z = -1;
 
                 const position = [x, y, z];
-                // console.log('positoin', position);
+                console.log('positoin', position);
                 arr.push(<Box index={index} position={position} />);
             }
         }
@@ -43,6 +43,9 @@ export default function CubeWall(props) {
 
     return (
         <>
+            {/* <StaticBox color={'red'} position={[0, 0, -1]} /> */}
+
+
             {cubes}
         </>
     )

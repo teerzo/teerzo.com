@@ -9,7 +9,19 @@ import Home from '../../routes/home';
 import Projects from '../../routes/projects';
 import About from '../../routes/about';
 
+import { useLocation } from "react-router";
+import { useEffect } from "react";
+
+
 export default function App() {
+
+    // const location = useLocation();
+
+    // useEffect(() => {
+    //     console.log('location change', location);
+
+    // },[location])
+
     return (
         <>
             <BrowserRouter>
