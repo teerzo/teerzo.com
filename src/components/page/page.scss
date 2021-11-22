@@ -12,16 +12,24 @@
     font-weight: 300;
     color: #ffffff;
     margin: 0 auto;
+    pointer-events: none;
+
+    // border: 1px solid green;
+
     // padding-top: 64px;
 
     // background-color: #333333;
 
-  
     .page-padding {
         padding: 20px;
         height: 100%;
         position: relative;
         overflow-y: auto;
+
+        pointer-events: none;
+        & > * {
+            pointer-events: all;
+        }
 
         body::-webkit-scrollbar {
             width: 1em;
@@ -42,5 +50,38 @@
 
         // background-color: rgba($color: #333333, $alpha: 0.5);
     }
+
+    .home {
+
+        .flex-vertical {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: center;
+            pointer-events: none;
+
+        }
+        .flex-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            pointer-events: none;
+            & > * {
+                pointer-events: all;
+            }
     
+        }
+        .icon  {
+            font-size: 100px;
+            color: #111111;
+            margin-left: 10px;
+            margin-right: 10px;
+            // color: red;
+            &:hover {
+                color:rgb(75, 248, 196);;
+            }
+        }
+    }
 }

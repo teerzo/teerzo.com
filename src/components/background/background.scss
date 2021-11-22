@@ -2,10 +2,25 @@
 
 .background {
     position: fixed;
-    z-index: -2;
+    z-index: 0;
     top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;
     background-color: #282c34;
+
+
+   
+}
+
+.background-parent {
+    height: 100%;
+
+    .buttons {
+        border: 1px solid red;
+        position: fixed;
+        z-index: 100;
+        top: 100px;
+        left: 20px;
+    }
 }
