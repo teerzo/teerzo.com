@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Tourney:wght@500;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap");
 
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
 html {
   position: relative;
   display: flex;
@@ -56,6 +60,7 @@ body {
 }
 
 .App {
+  width: 100%;
   overflow: hidden !important;
   display: flex !important;
   flex-flow: column nowrap !important;
@@ -69,6 +74,8 @@ body {
   position: relative;
   overflow: hidden;
   height: 100%;
+  width: 100%;
+  pointer-events: none;
 }
 
 .App-logo {

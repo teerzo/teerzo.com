@@ -5,7 +5,9 @@ import React, { useEffect, useState } from 'react';
 import useWindowSize from '../../helpers/useWindowSize';
 
 import './nav.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+import NavLink from '../nav-link';
 
 import { FaStream, FaBars, FaTimes } from 'react-icons/fa';
 
@@ -25,6 +27,8 @@ export default function Nav(props) {
         }
     }, [size])
 
+  
+
 
     function handleChange(isMenuOpen) {
         setMenuOpen(isMenuOpen);
@@ -38,14 +42,17 @@ export default function Nav(props) {
                     <div className='nav'>
                         <div className="nav-links mobile">
                             <FakeSpace />
-                            <TitleLink to="/" > TEERZO </TitleLink>
+                            <NavLink to="/" className="title"> TEERZO </NavLink>
+                            {/* <TitleLink to="/" > TEERZO </TitleLink> */}
+                            {/* <NavLink to='/'> TEERZO </NavLink> */}
+
                             <Hamburger onChange={handleChange} />
                         </div>
                         {menuOpen ?
                             <div className="nav-menu">
-
+                                <br />
                                 <NavLink to='/'> HOME </NavLink>
-                                <br/>
+                                <br />
                                 <NavLink to='/projects'> PROJECTS </NavLink>
                                 <NavLink to="/about"> ABOUT </NavLink>
 
@@ -60,8 +67,9 @@ export default function Nav(props) {
                 <div className='nav'>
                     <div className="nav-links">
                         <NavLink to='/projects'> PROJECTS </NavLink>
-                        <TitleLink to="/" > TEERZO </TitleLink>
+                        <NavLink to="/" className="title"> TEERZO </NavLink>
                         <NavLink to="/about"> ABOUT </NavLink>
+                        {/* <TitleLink to="/" > TEERZO </TitleLink> */}
                     </div>
                 </div>
             }
@@ -80,17 +88,6 @@ function TitleLink({ to, ...props }) {
     )
 }
 
-function NavLink({ to, ...props }) {
-
-    return (
-        <>
-            <div className="nav-link">
-                <Link to={to}> {props.children} </Link>
-            </div>
-        </>
-    )
-
-}
 
 function FakeSpace() {
     return (
@@ -128,10 +125,7 @@ function Hamburger({ onChange, ...props }) {
             {menuOpen ?
                 <FaTimes className="icon" />
                 :
-                mouseOver ?
-                    <FaStream className="icon" />
-                    :
-                    <FaBars className="icon" />
+                <FaBars className="icon" />
             }
 
         </div>
