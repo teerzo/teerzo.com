@@ -32,8 +32,8 @@ export default function Background({ route, ...props }) {
     const [page, setPage] = useState('home');
 
 
-    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 6, 0));
-    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(0, 6, 0));
+    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 0, 0));
+    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(0, 0, 0));
 
     useEffect(() => {
         setPage(route);
@@ -63,7 +63,7 @@ export default function Background({ route, ...props }) {
             setTarget(new THREE.Vector3(0, 0, 0));
             setCameraPos(new THREE.Vector3(-4, 1, 4));
 
-            setProjectsTarget(new THREE.Vector3(-2, 1, 0));
+            setProjectsTarget(new THREE.Vector3(-1, 1, 0));
             setAboutTarget(new THREE.Vector3(1,6 , 0));
         }
         else if (page === 'about') {
@@ -71,7 +71,7 @@ export default function Background({ route, ...props }) {
             setCameraPos(new THREE.Vector3(3, -1, 3));
 
             setProjectsTarget(new THREE.Vector3(0, 4, 0));
-            setAboutTarget(new THREE.Vector3(2, 0, 0));
+            setAboutTarget(new THREE.Vector3(1, 1, 0));
         }
 
     }
@@ -101,7 +101,9 @@ export default function Background({ route, ...props }) {
                         <Text text={'Projects'} 
                         position={textProject} 
                         rotation={projectsTextRotation} 
-                        fontSize={1} />
+                        fontSize={0.5} 
+                        font={'Roboto'}
+                        />
                     </Cube>
 
                     <Cube color={'white'} opacity={0.1} wireframe={true}
@@ -109,7 +111,9 @@ export default function Background({ route, ...props }) {
                         <Text text={'About'} 
                         position={textProject} 
                         rotation={projectsTextRotation} 
-                        fontSize={1} />
+                        fontSize={0.5} 
+                        font={'Roboto'}
+                        />
                     </Cube>
 
                     <Cube color={'red'} position={new THREE.Vector3(0, 0, 0)} />

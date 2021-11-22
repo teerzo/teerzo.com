@@ -8,8 +8,9 @@ import * as THREE from 'three'
 extend({ Text });
 
 const fonts = {
-    Tourney: "https://fonts.googleapis.com/css2?family=Tourney:wght@500;900&display=swap",
-    Roboto: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap"
+    // Tourney: "https://fonts.googleapis.com/css2?family=Tourney:wght@500;900&display=swap",
+    // Roboto: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap"
+    Roboto: "https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxM.woff",
 }
 
 function ThreeText(props) {
@@ -22,10 +23,10 @@ function ThreeText(props) {
     const [fontSize, setFontSize] = useState(props.fontSize);
 
     const [opts, setOpts] = useState({
-        font: "Tourney",
+        font: "Roboto",
         // fontSize: props.fontSize,
         color: "#99ccff",
-        maxWidth: 1,
+        maxWidth: 1000,
         lineHeight: 1,
         letterSpacing: 0,
         textAlign: "center",
@@ -34,7 +35,7 @@ function ThreeText(props) {
     });
 
     useFrame(({ clock, camera }) => {
-        let pos = new THREE.Vector3().copy(position);
+        let pos = new THREE.Vector3().copy(props.position);
         // pos.x = 0 + Math.sin(clock.getElapsedTime()) * 1 - 2;
         setPosition(pos);
 
