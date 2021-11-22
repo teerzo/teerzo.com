@@ -1,11 +1,12 @@
 import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 
 
 export default function Cube({color, position, ...props}) {
 
-    const [initialPosition, setInitPosition] = useState(position);
+    const [initialPosition, setInitPosition] = useState( position ? position : new THREE.Vector3(0,0,0));
 
     const [lifeSpan, setLifeSpan] = useState(0);
     const [maxLifeSpan, setMaxLifeSpan] = useState(1);
@@ -36,7 +37,9 @@ export default function Cube({color, position, ...props}) {
         ref.current.position.y += (moveDir[1] * moveSpeed[1] * delta);
         ref.current.position.z += (moveDir[2] * moveSpeed[2] * delta);
 
-      
+
+        ref.current.position.lerp(position, 0.1);
+
 
 
         if (clicked) {
@@ -55,9 +58,9 @@ export default function Cube({color, position, ...props}) {
 
         if (position) {
             // console.log('props', props);
-            ref.current.position.x = initialPosition[0];
-            ref.current.position.y = initialPosition[1];
-            ref.current.position.z = initialPosition[2];
+            ref.current.position.x = position.x;
+            ref.current.position.y = position.y;
+            ref.current.position.z = position.z;
         }
 
         // ref.current.position.x = rand(-10, 10);
@@ -111,10 +114,11 @@ export default function Cube({color, position, ...props}) {
         <mesh
             {...props}
             ref={ref}
-            scale={1}
+            scale={props.scale ? props.scale : 1}
             >
             <boxGeometry args={[0.5, 0.5, 0.5]} />
-            <meshStandardMaterial color={color} opacity={0.5} />
+            <meshStandardMaterial color={color} wireframe={props.wireframe ? props.wireframe : false} opacity={props.opacity ? props.opacity : 1} />
+            {props.children}
         </mesh>
     )
 }

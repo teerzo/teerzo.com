@@ -51,37 +51,7 @@
     }
 }
 
-.title-link {
-    color: rgb(75, 248, 196);
-    font-size: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
 
-    a {
-        color: rgb(75, 248, 196);
-        text-decoration: none;
-        &:hover {
-            border-bottom: solid 1px rgb(75, 248, 196);
-        }
-    }
-}
-
-.nav-link {
-    min-width: 100px;
-    // flex-grow: 1;
-    font-size: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-
-    a {
-        color: rgb(19, 138, 102);
-        text-decoration: none;
-        &:hover {
-            color: rgb(75, 248, 196);
-            border-bottom: solid 1px rgb(75, 248, 196);
-        }
-    }
-}
 
 .fake-space {
     .icon {

@@ -15,8 +15,8 @@ export default function CubeWall(props) {
 
     function initCubes() {
         const maxCubes = 100;
-        const rows = 30;
-        const cols = 30;
+        const rows = 10;
+        const cols = 10;
         const offset = 0.7;
 
         let arr = [];
@@ -102,7 +102,7 @@ function Box(props) {
 
         // ref.current.position.x = (Math.sin((Date.now()%60000)/60000 * Math.PI * 2) * 1);
         // ref.current.position.y = (Math.cos((Date.now()%60000)/60000 * Math.PI * 2) * 1);
-        ref.current.position.z = (Math.sin((Date.now()%timerRand)/timerRand * Math.PI * zRand) * 0.5) - 1;
+        ref.current.position.z = (Math.sin((Date.now()%timerRand)/timerRand * Math.PI * zRand) * 2) - 3;
 
 
         if (clicked) {

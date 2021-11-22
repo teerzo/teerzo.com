@@ -1,15 +1,11 @@
 
 import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
-import {
-    Canvas, useFrame,
-    useLoader,
-    extend,
-    useThree,
-} from '@react-three/fiber'
+import { Canvas, useFrame, useLoader, extend, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
+import { useLocation } from 'react-router-dom';
 
 import FloatingCubes from '../../scenes/floating-cubes';
 
@@ -20,55 +16,73 @@ import Cube from '../../objects/cube';
 
 import useReactPath from '../../helpers/useReactPath';
 
+import Text from '../../objects/text';
+
 // Extend will make OrbitControls available as a JSX element called orbitControls for us to use.
 extend({ OrbitControls });
 
 
-export default function Background(props) {
+export default function Background({ route, ...props }) {
+    // let location = useLocation();
 
-    const [target, setTarget] = useState(new THREE.Vector3(0,0,0));
-    const [cameraPos, setCameraPos] = useState(new THREE.Vector3(0,0,10));
+    const [target, setTarget] = useState(new THREE.Vector3(0, 0, 0));
+    const [cameraPos, setCameraPos] = useState(new THREE.Vector3(0, 0, 6));
 
     const [timer, setTimer] = useState(0);
     const [page, setPage] = useState('home');
 
-    const path = useReactPath();
-    React.useEffect(() => {
-      // do something when path changes ...
-      console.log('path', path);
-    }, [path]);
+
+    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 6, 0));
+    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(0, 6, 0));
+
+    useEffect(() => {
+        setPage(route);
+    }, [route]);
+
+    useEffect(() => {
+        changePage();
+    }, [page]);
 
 
-    function handleClick(event) {
-        console.log('background parent click', event.target);
+    const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
+    const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(0, 0, 0))
+    // const [projectsTextRotation, setProjectsTextRotation] = 
+    // useState([180, 180, 180, 180])
 
-    }
 
-    function handleCanvasClick(event) {
-        console.log('canvas handle click', event.target);
 
-    }
+    function changePage() {
+        if (page === 'home') {
+            setTarget(new THREE.Vector3(0, 0, 0));
+            setCameraPos(new THREE.Vector3(0, 0, 4));
 
-    function swapPage() {
-        if( page === 'home' ) {
-            setPage('projects');
-            setTarget(new THREE.Vector3(0,2,0));
-            setCameraPos(new THREE.Vector3(5,0,5));
+            setProjectsTarget(new THREE.Vector3(0, 4, 0));
+            setAboutTarget(new THREE.Vector3(2, 6, 0));
         }
-        else {
-            setPage('home');
-            setTarget(new THREE.Vector3(0,0,0));
-            setCameraPos(new THREE.Vector3(0,0,10));
+        else if (page === 'projects') {
+            setTarget(new THREE.Vector3(0, 0, 0));
+            setCameraPos(new THREE.Vector3(-4, 1, 4));
+
+            setProjectsTarget(new THREE.Vector3(-2, 1, 0));
+            setAboutTarget(new THREE.Vector3(1,6 , 0));
         }
+        else if (page === 'about') {
+            setTarget(new THREE.Vector3(0, 0, 0));
+            setCameraPos(new THREE.Vector3(3, -1, 3));
+
+            setProjectsTarget(new THREE.Vector3(0, 4, 0));
+            setAboutTarget(new THREE.Vector3(2, 0, 0));
+        }
+
     }
 
     return (
-        <div className="background-parent" onClick={handleClick}>
+        <div className="background-parent">
 
 
 
             <div id="background" className="background">
-                <Canvas gl={{ antialias: true }} onClick={handleCanvasClick}>
+                <Canvas gl={{ antialias: true }} pixelRatio={window.devicePixelRatio}>
                     <ambientLight />
                     <pointLight position={[10, 10, 10]} />
                     <CameraControls target={target} position={cameraPos} />
@@ -80,21 +94,38 @@ export default function Background(props) {
                         :                       
                         <ProjectDolly />
                     } */}
+                    
+                    
+                    <Cube color={'white'} opacity={0.1} wireframe={true}
+                     scale={1} position={projectsTarget} >
+                        <Text text={'Projects'} 
+                        position={textProject} 
+                        rotation={projectsTextRotation} 
+                        fontSize={1} />
+                    </Cube>
 
-                    <Cube color={'red'} position={[0, 0, 0]} />
-                    <Cube color={'green'} position={[0, 1, 0]} />
-                    <Cube color={'blue'} position={[1, 0, 0]} />
-                    <Cube color={'yellow'} position={[0, -1, 0]} />
-                    <Cube color={'orange'} position={[-1, 0, 0]} />
+                    <Cube color={'white'} opacity={0.1} wireframe={true}
+                     scale={1} position={aboutTarget}  >
+                        <Text text={'About'} 
+                        position={textProject} 
+                        rotation={projectsTextRotation} 
+                        fontSize={1} />
+                    </Cube>
+
+                    <Cube color={'red'} position={new THREE.Vector3(0, 0, 0)} />
+                    <Cube color={'green'} position={new THREE.Vector3(0, 1, 0)} />
+                    <Cube color={'blue'} position={new THREE.Vector3(1, 0, 0)} />
+                    <Cube color={'yellow'} position={new THREE.Vector3(0, -1, 0)} />
+                    <Cube color={'orange'} position={new THREE.Vector3(-1, 0, 0)} />
 
 
 
                 </Canvas>
             </div>
-            <div className="buttons">
+            {/* <div className="buttons">
                 <button onClick={swapPage}> Home </button>
                 <button onClick={swapPage}> Projects </button>
-            </div>
+            </div> */}
             {props.children}
         </div>
     )
@@ -103,7 +134,7 @@ export default function Background(props) {
 function HomeCamera() {
     // This one makes the camera move in and out
     useFrame(({ clock, camera }) => {
-        const target = new THREE.Vector3(0, 0, 10);
+        const target = new THREE.Vector3(0, 0, 6);
         const targetPos = new THREE.Vector3(0, 0, 5);
 
         const cameraPos = camera.position;
@@ -145,7 +176,7 @@ function ProjectDolly() {
 
 
 
-const CameraControls = ({target, position, ...props}) => {
+const CameraControls = ({ target, position, ...props }) => {
     // Get a reference to the Three.js Camera, and the canvas html element.
     // We need these to setup the OrbitControls component.
     // https://threejs.org/docs/#examples/en/controls/OrbitControls
@@ -155,7 +186,9 @@ const CameraControls = ({target, position, ...props}) => {
     } = useThree();
     // Ref to the controls, so that we can update them on every frame using useFrame
     const controls = useRef();
-    useFrame(({clock, camera}) => {
+    useFrame(({ clock, camera }) => {
+        controls.current.enabled = false;
+
         // console.log('controls', controls.current);
 
         // const currentPos = 
@@ -177,8 +210,8 @@ const CameraControls = ({target, position, ...props}) => {
         // controls.current.position0.lerp(position, 1);
 
         // console.log('camera', camera);
-        camera.position.lerp(position,0.1);
-        
+        camera.position.lerp(position, 0.1);
+
 
         // controls.current.position0.x += Math.sin(clock.getElapsedTime());
 

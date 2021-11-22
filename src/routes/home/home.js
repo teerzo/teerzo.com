@@ -4,9 +4,19 @@ import Nav from '../../components/nav';
 import Page from '../../components/page';
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import OutLink from '../../components/out-link';
+import { useEffect } from 'react';
 
 
-export default function Home() {
+export default function Home({ onChange, ...props }) {
+
+    useEffect(() => {
+        if (onChange) {
+            // console.log('onChange', 'home');
+            onChange('home');
+        }
+    }, [])
+
+
     return (
         <>
             <Nav />
