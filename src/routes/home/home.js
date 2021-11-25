@@ -6,6 +6,7 @@ import { FaGithub, FaTwitter } from "react-icons/fa";
 import OutLink from '../../components/out-link';
 import { useEffect } from 'react';
 
+import './home.scss';
 
 export default function Home({ onChange, ...props }) {
 
@@ -25,8 +26,7 @@ export default function Home({ onChange, ...props }) {
                     <div className="home page-padding page-layout-centered">
 
                         <div className="flex-vertical">
-                            <div className="flex-horizontal">
-
+                            <div className="flex-horizontal bg-black">
                                 <OutLink href={"https://github.com/teerzo"}>
                                     <FaGithub className="icon" />
                                 </OutLink>
