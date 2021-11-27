@@ -23,36 +23,37 @@ extend({ OrbitControls });
 
 
 export default function Background({ route, ...props }) {
-    // let location = useLocation();
+    let location = useLocation();
 
     const [target, setTarget] = useState(new THREE.Vector3(0, 0, 0));
     const [cameraPos, setCameraPos] = useState(new THREE.Vector3(0, 0, 6));
 
     const [timer, setTimer] = useState(0);
-    const [page, setPage] = useState('home');
+    const [page, setPage] = useState('');
 
 
-    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 0, 0));
-    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(0, 0, 0));
+    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 4, 0));
+    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(2, 6, 0));
 
-    useEffect(() => {
-        setPage(route);
-    }, [route]);
 
     useEffect(() => {
         changePage();
     }, [page]);
 
 
+    useEffect(() => {
+        console.log('location');
+        let str = location.pathname.replace('/','');
+        setPage(str);
+    },[location])
+
+
     const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
     const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(0, 0, 0))
-    // const [projectsTextRotation, setProjectsTextRotation] = 
-    // useState([180, 180, 180, 180])
-
 
 
     function changePage() {
-        if (page === 'home') {
+        if (page === '') {
             setTarget(new THREE.Vector3(0, 0, 0));
             setCameraPos(new THREE.Vector3(0, 0, 4));
 
@@ -60,7 +61,7 @@ export default function Background({ route, ...props }) {
             setAboutTarget(new THREE.Vector3(2, 6, 0));
         }
         else if (page === 'projects') {
-            setTarget(new THREE.Vector3(0, 0, 0));
+            setTarget(new THREE.Vector3(0, -1.5, 0));
             setCameraPos(new THREE.Vector3(-4, 1, 4));
 
             setProjectsTarget(new THREE.Vector3(-1, 1, 0));

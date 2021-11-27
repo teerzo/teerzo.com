@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './page.scss';
+import cx from 'classnames';
 
-export default function Page(props) {
+export default function Page({className, ...props}) {
+
+
+    const classes = cx(
+        'page', 
+        className
+    )
     return (
         <>
-            <div className="page">
+            <div className={classes}>
                 {props.children}
             </div>
         </>

@@ -1,26 +1,57 @@
 import Nav from '../../components/nav';
 import Page from '../../components/page';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import OutLink from 'components/out-link';
 
-export default function Projects({onChange, ...props}) {
 
-    useEffect(() => {
-        if (onChange) {
-            // console.log('onChange', 'projects');
-            onChange('projects');
-        }
-    }, [])
+// Components 
+import Image from 'components/image';
+import Footer from 'components/footer';
+
+// Images
+import jungleImg from 'images/jungle.png';
+
+import './projects.scss'
+
+export default function Projects({ ...props }) {
+
+    const [projects, setProjects] = useState([
+        { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+    ])
 
     return (
         <>
-            <Nav />
             <div className="container">
-                <Page>
-                    <div className="page-padding page-layout-centered">
-                        {/* <h1> Projects </h1> */}
+                <Page className="">
+                    <div className="projects page-padding">
+                        { projects.map((item, key) => {
+                            return (
+                                <ProjectCard key={key} {...item} />
+                            )
+                        })}
+
+                        <div className="divider"></div>
                     </div>
                 </Page>
+                <Footer/>
             </div>
         </>
     );
+}
+
+function ProjectCard({title, href, src, ...props}) {
+
+    return (
+        <>
+            <div className="project-card bg-black">
+                <h3> {title} </h3>
+                <OutLink href={href}> <Image width={300} src={src} /> </OutLink>
+            </div>
+        </>
+    )
 }
