@@ -17,10 +17,16 @@
     .icon {
         color: #ffffff;
     }
+
+    
 }
 
 
 .project-card {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+
     margin-bottom: 20px;
     padding: 2px;
 
@@ -31,5 +37,9 @@
 
     &:first-child {
         margin-top: 50%;
+    }
+    &:last-child {
+        // padding-bottom: 200px !important;
+        // border-bottom: 200px solid !important;
     }
 }

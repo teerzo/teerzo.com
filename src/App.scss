@@ -71,8 +71,8 @@ body {
   overflow: hidden;
   height: calc(100vh - 4rem);
   width: 100%;
-  // pointer-events: none;
-  overflow-y: scroll;
+  // overflow-y: scroll;
+  pointer-events: none;
 }
 
 

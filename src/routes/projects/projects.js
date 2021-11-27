@@ -32,6 +32,8 @@ export default function Projects({ ...props }) {
                                 <ProjectCard key={key} {...item} />
                             )
                         })}
+
+                        <div className="divider"> </div>
                     </div>
                 </Page>
             </div>
