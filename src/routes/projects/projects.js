@@ -6,6 +6,8 @@ import OutLink from 'components/out-link';
 
 // Components 
 import Image from 'components/image';
+import Footer from 'components/footer';
+
 // Images
 import jungleImg from 'images/jungle.png';
 
@@ -33,9 +35,10 @@ export default function Projects({ ...props }) {
                             )
                         })}
 
-                        <div className="divider"> </div>
+                        <div className="divider"></div>
                     </div>
                 </Page>
+                <Footer/>
             </div>
         </>
     );
