@@ -13,11 +13,11 @@ export default function Home({ ...props }) {
     return (
         <>
             <div className="container">
-                <Page className="">
+                {/* <Page className="">
                     <div className="home page-padding page-layout-centered">
 
                     </div>
-                </Page>
+                </Page> */}
             </div>
         </>
     );

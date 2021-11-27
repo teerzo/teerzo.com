@@ -1,19 +1,16 @@
 .page {
-    // overflow: hidden;
-    // position: relative;
-    // flex-grow: 1;
-    // height: 100%;
-    // width: 100%;
     display: flex;
+    flex-wrap: nowrap;
     flex-direction: column;
     z-index: 1;
 
     font-family: "Roboto", sans-serif;
     font-weight: 300;
     color: #ffffff;
-    margin: 0 auto;
+    pointer-events: all;
 
-    // overflow-y: auto;
+    overflow-y: auto;
+    width: 100%;
 
     // pointer-events: none;
 
@@ -25,8 +22,11 @@
 
     .page-padding {
         padding: 20px;
+        max-width: 500px;
         height: 100%;
         position: relative;
+        margin: 0 auto;
+
 
         // pointer-events: none;
         & > * {
@@ -46,6 +46,14 @@
             outline: 1px solid slategrey;
         }
     }
+
+    .divider {
+        // height: 1px;
+        width: 100%;
+        border-top: 20px solid rgba($color: #000000, $alpha: 0.0);
+        border-bottom: 20px solid rgba($color: #000000, $alpha: 0.0);
+    }
+
     .page-layout-centered {
         max-width: 1000px;
         margin: 0 auto;
