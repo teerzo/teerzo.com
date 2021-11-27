@@ -1,9 +1,9 @@
 .page {
-    overflow: hidden;
-    position: relative;
-    flex-grow: 1;
-    height: 100%;
-    width: 100%;
+    // overflow: hidden;
+    // position: relative;
+    // flex-grow: 1;
+    // height: 100%;
+    // width: 100%;
     display: flex;
     flex-direction: column;
     z-index: 1;
@@ -12,7 +12,10 @@
     font-weight: 300;
     color: #ffffff;
     margin: 0 auto;
-    pointer-events: none;
+
+    // overflow-y: auto;
+
+    // pointer-events: none;
 
     // border: 1px solid green;
 
@@ -24,9 +27,8 @@
         padding: 20px;
         height: 100%;
         position: relative;
-        overflow-y: auto;
 
-        pointer-events: none;
+        // pointer-events: none;
         & > * {
             pointer-events: all;
         }
@@ -48,10 +50,17 @@
         max-width: 1000px;
         margin: 0 auto;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+
         // background-color: rgba($color: #333333, $alpha: 0.5);
     }
 
-    .home {
+    
+
+    .home, .projects, .about{
 
         .flex-vertical {
             height: 100%;
@@ -59,7 +68,7 @@
             flex-direction: column;
             justify-content: center;
             align-self: center;
-            pointer-events: none;
+            // pointer-events: none;
 
         }
         .flex-horizontal {
@@ -67,21 +76,14 @@
             flex-direction: row;
             justify-content: space-between;
 
-            pointer-events: none;
+            // pointer-events: none;
             & > * {
                 pointer-events: all;
             }
-    
-        }
-        .icon  {
-            font-size: 100px;
-            // color: #111111;
-            margin-left: 10px;
-            margin-right: 10px;
-            // color: red;
-            &:hover {
-                color:rgb(75, 248, 196);;
+            &.flex-justify-center {
+                justify-content: center;
             }
         }
+        
     }
 }

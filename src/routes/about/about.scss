@@ -6,4 +6,14 @@
     .icon {
         color: #ffffff;
     }
+    .icon  {
+        font-size: 100px;
+        // color: #111111;
+        margin-left: 10px;
+        margin-right: 10px;
+        // color: red;
+        &:hover {
+            color:rgb(75, 248, 196);;
+        }
+    }
 }
