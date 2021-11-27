@@ -1,9 +1,35 @@
 .projects {
+
+    
     .bg-black {
-        padding: 10px;
+        // padding: 10px;
         background-color: rgba($color: #333333, $alpha: 0.8);
+
+        border-radius: 2px 2px 2px 2px;
+        -moz-border-radius: 2px 2px 2px 2px;
+        -webkit-border-radius: 2px 2px 2px 2px;
+        border: 0px solid #333333;
+
+        -webkit-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.25);
     }
     .icon {
         color: #ffffff;
+    }
+}
+
+
+.project-card {
+    margin-bottom: 20px;
+    padding: 2px;
+
+    h3 {
+        margin: 5px 0px;
+        text-align: center;
+    }
+
+    &:first-child {
+        margin-top: 50%;
     }
 }

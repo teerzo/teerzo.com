@@ -11,18 +11,11 @@ import Router from './components/router';
 
 export default function App() {
 
-  const [route, setRoute] = useState('');
-
-  useEffect(() => {
-    console.log('route change', route );
-  },[route])
-
-
   return (
     <>
       <div className="App">
-        <Background route={route}>
-          <Router onChange={setRoute}/>
+        <Background >
+          <Router />
         </Background>
       </div>
     </>

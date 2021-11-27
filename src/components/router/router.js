@@ -1,41 +1,22 @@
 
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from '../../routes/home';
 import Projects from '../../routes/projects';
 import About from '../../routes/about';
+import Nav from 'components/nav';
 
-import { useLocation } from "react-router";
-import { useEffect } from "react";
-
-
-export default function Router({ onChange, ...props }) {
-
-    // const location = useLocation();
-
-    // useEffect(() => {
-    //     console.log('location change', location);
-
-    // }, [location])
-
-    function onRouterChange() {
-        console.log('onRouterChange');
-    }
+export default function Router({ ...props }) {
 
     return (
-        <>
-            <BrowserRouter onChange={onRouterChange}>
-                <Routes>
-                    <Route path="/" element={<Home onChange={onChange} />} />
-                    <Route path="/projects" element={<Projects onChange={onChange}/>} />
-                    <Route path="/about" element={<About onChange={onChange}/>} />
+        <>  
+            <Nav />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/about" element={<About />} />
 
-                </Routes>
-            </BrowserRouter>
+            </Routes>
         </>
     );
 }

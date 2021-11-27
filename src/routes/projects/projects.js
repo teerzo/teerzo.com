@@ -1,6 +1,6 @@
 import Nav from '../../components/nav';
 import Page from '../../components/page';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import OutLink from 'components/out-link';
 
 
@@ -9,42 +9,44 @@ import Image from 'components/image';
 // Images
 import jungleImg from 'images/jungle.png';
 
-export default function Projects({ onChange, ...props }) {
+import './projects.scss'
 
-    useEffect(() => {
-        if (onChange) {
-            // console.log('onChange', 'projects');
-            onChange('projects');
-        }
-    }, [])
+export default function Projects({ ...props }) {
+
+    const [projects, setProjects] = useState([
+        { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+        // { title: 'Jungle im my plants', href: 'https://jungleinmyplants.com', src: jungleImg },
+    ])
 
     return (
         <>
-            <Nav />
-
             <div className="container">
                 <Page className="">
-                    <div className="projects page-padding page-layout-centered">
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                 
-                        <div className="flex-horizontal">
-                            <div className="flex-vertical bg-black">
-                                <h3> Jungle im my plants </h3>
-                                <OutLink href="https://jungleinmyplants.com"> <Image width={300} src={jungleImg} /> </OutLink>
-                            </div>
-                        </div>
+                    <div className="projects page-padding">
+                        { projects.map((item, key) => {
+                            return (
+                                <ProjectCard key={key} {...item} />
+                            )
+                        })}
                     </div>
                 </Page>
             </div>
         </>
     );
+}
+
+function ProjectCard({title, href, src, ...props}) {
+
+    return (
+        <>
+            <div className="project-card bg-black">
+                <h3> {title} </h3>
+                <OutLink href={href}> <Image width={300} src={src} /> </OutLink>
+            </div>
+        </>
+    )
 }
