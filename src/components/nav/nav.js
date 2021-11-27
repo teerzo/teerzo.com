@@ -13,9 +13,10 @@ import { FaStream, FaBars, FaTimes } from 'react-icons/fa';
 
 
 export default function Nav(props) {
+    const location = useLocation();
     const size = useWindowSize();
     const [mobile, setMobile] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
 
     useEffect(() => {
@@ -24,16 +25,19 @@ export default function Nav(props) {
         }
         else {
             setMobile(false);
+            setOpen(false);
         }
     }, [size])
 
-  
+    useEffect(() => {
+        setOpen(false);
+    }, [location])
 
 
-    function handleChange(isMenuOpen) {
-        setMenuOpen(isMenuOpen);
+    function handleChange() {
+        setOpen(!open);
     }
-
+    
 
     return (
         <>
@@ -46,9 +50,9 @@ export default function Nav(props) {
                             {/* <TitleLink to="/" > TEERZO </TitleLink> */}
                             {/* <NavLink to='/'> TEERZO </NavLink> */}
 
-                            <Hamburger onChange={handleChange} />
+                            <Hamburger open={open} onChange={handleChange} />
                         </div>
-                        {menuOpen ?
+                        {open ?
                             <div className="nav-menu">
                                 <br />
                                 <NavLink to='/'> HOME </NavLink>
@@ -97,32 +101,18 @@ function FakeSpace() {
     )
 }
 
-function Hamburger({ onChange, ...props }) {
-    const [mouseOver, setMouseOver] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
 
-    useEffect(() => {
-        if (onChange) {
-            onChange(menuOpen);
-        }
-    }, [menuOpen])
+function Hamburger({ onChange, open, ...props }) {
 
     function handleClick() {
-        setMenuOpen(!menuOpen);
-
+        if (onChange) {
+            onChange();
+        }
     }
-
-    function handleMouseOver() {
-        setMouseOver(true);
-    }
-    function handleMouseLeave() {
-        setMouseOver(false);
-    }
-
 
     return (
-        <div className="hamburger" onClick={handleClick} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
-            {menuOpen ?
+        <div className="hamburger" onClick={handleClick}>
+            {open ?
                 <FaTimes className="icon" />
                 :
                 <FaBars className="icon" />
