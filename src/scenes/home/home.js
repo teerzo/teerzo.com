@@ -105,6 +105,8 @@ function Box(props) {
 
         // ref.current.position.x = (Math.sin((Date.now()%60000)/60000 * Math.PI * 2) * 1);
         // ref.current.position.y = (Math.cos((Date.now()%60000)/60000 * Math.PI * 2) * 1);
+
+       
         ref.current.position.z = (Math.sin((Date.now()%timerRand)/timerRand * Math.PI * zRand) * 0.5) - 1;
 
 
