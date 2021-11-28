@@ -1,40 +1,58 @@
-
+// Packages
 import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame, useLoader, extend, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+import { OrbitControls } from '@react-three/drei';
 import { useLocation } from 'react-router-dom';
 
-import FloatingCubes from '../../scenes/floating-cubes';
-
-import './background.scss';
-import CubeWall from '../../scenes/cube-wall';
-
-import Cube from '../../objects/cube';
-
+// Components
 import useReactPath from '../../helpers/useReactPath';
 
+// Objects
+import FloatingCubes from '../../scenes/floating-cubes';
+import CubeWall from '../../scenes/cube-wall';
+import Cube from '../../objects/cube';
+import Object from '../../objects/object';
 import Text from '../../objects/text';
 
-// Extend will make OrbitControls available as a JSX element called orbitControls for us to use.
-extend({ OrbitControls });
-
+// Styles
+import './background.scss';
 
 export default function Background({ route, ...props }) {
     let location = useLocation();
 
-    const [target, setTarget] = useState(new THREE.Vector3(0, 0, 0));
-    const [cameraPos, setCameraPos] = useState(new THREE.Vector3(0, 0, 6));
-
     const [timer, setTimer] = useState(0);
-    const [page, setPage] = useState('');
+    const [page, setPage] = useState(location ? location.pathname.replace('/', '') : '');
+
+    const defaultCamera = {
+        home: {
+            target: new THREE.Vector3(0, 0, 0),
+            position: new THREE.Vector3(0, 0, 4)
+        },
+        projects: {
+            target: new THREE.Vector3(0, -1.5, 0),
+            position: new THREE.Vector3(-4, 1, 4)
+        },
+        about: {
+            target: new THREE.Vector3(0, 0, 0),
+            position: new THREE.Vector3(3, -1, 3)
+        }
+    }
 
 
-    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 4, 0));
-    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(2, 6, 0));
 
+    const [target, setTarget] = useState(getPageDefault().target);
+    const [cameraPos, setCameraPos] = useState(getPageDefault().position);
+
+
+
+
+    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 0, 0));
+    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(0, 0, 0));
+
+    const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
+    const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(45, 0, 0))
 
     useEffect(() => {
         changePage();
@@ -42,46 +60,53 @@ export default function Background({ route, ...props }) {
 
 
     useEffect(() => {
-        console.log('location');
-        let str = location.pathname.replace('/','');
+        // console.log('location');
+        let str = location.pathname.replace('/', '');
         setPage(str);
-    },[location])
+    }, [location])
 
 
-    const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
-    const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(0, 0, 0))
+    function getPageDefault() {
+        // console.log('page', page);
+        if (page !== null) {
 
+            if (page === '') {
+                return defaultCamera.home;
+            }
+            else if (page === 'projects') {
+                return defaultCamera.projects;
+            }
+            else if (page === 'about') {
+                return defaultCamera.about;
+            }
+        }
+        return {
+            target: new THREE.Vector3(0, 0, 0),
+            position: new THREE.Vector3(0, 0, 0)
+        }
+    }
 
     function changePage() {
-        if (page === '') {
-            setTarget(new THREE.Vector3(0, 0, 0));
-            setCameraPos(new THREE.Vector3(0, 0, 4));
+        setTarget(getPageDefault().target);
+        setCameraPos(getPageDefault().position);
 
-            setProjectsTarget(new THREE.Vector3(0, 4, 0));
-            setAboutTarget(new THREE.Vector3(2, 6, 0));
+        if (page === '') {
+            setProjectsTarget(new THREE.Vector3(0, 10, 0));
+            setAboutTarget(new THREE.Vector3(2, 10, 0));
         }
         else if (page === 'projects') {
-            setTarget(new THREE.Vector3(0, -1.5, 0));
-            setCameraPos(new THREE.Vector3(-4, 1, 4));
-
-            setProjectsTarget(new THREE.Vector3(-1, 1, 0));
-            setAboutTarget(new THREE.Vector3(1,6 , 0));
+            setProjectsTarget(new THREE.Vector3(0, 0, 0));
+            setAboutTarget(new THREE.Vector3(1, 10, 0));
         }
         else if (page === 'about') {
-            setTarget(new THREE.Vector3(0, 0, 0));
-            setCameraPos(new THREE.Vector3(3, -1, 3));
-
-            setProjectsTarget(new THREE.Vector3(0, 4, 0));
-            setAboutTarget(new THREE.Vector3(1, 1, 0));
+            setProjectsTarget(new THREE.Vector3(0, 10, 0));
+            setAboutTarget(new THREE.Vector3(0,0, 0));
         }
 
     }
 
     return (
         <div className="background-parent">
-
-
-
             <div id="background" className="background">
                 <Canvas gl={{ antialias: true }} pixelRatio={window.devicePixelRatio}>
                     <ambientLight />
@@ -90,32 +115,42 @@ export default function Background({ route, ...props }) {
 
 
                     <CubeWall />
-                    {/* {page === 'home' ?
-                        <HomeCamera />
-                        :                       
-                        <ProjectDolly />
-                    } */}
-                    
-                    
-                    <Cube color={'white'} opacity={0.1} wireframe={true}
-                     scale={1} position={projectsTarget} >
-                        <Text text={'Projects'} 
-                        position={textProject} 
-                        rotation={projectsTextRotation} 
-                        fontSize={0.5} 
-                        font={'Roboto'}
-                        />
-                    </Cube>
 
-                    <Cube color={'white'} opacity={0.1} wireframe={true}
-                     scale={1} position={aboutTarget}  >
-                        <Text text={'About'} 
-                        position={textProject} 
-                        rotation={projectsTextRotation} 
-                        fontSize={0.5} 
-                        font={'Roboto'}
+                    {page === '' ?
+                        <Object color={'red'} opacity={0.1} wireframe={true}
+                            scale={1} position={new THREE.Vector3(0, 0, 0)}
+                        >
+                            <Text text={'Ayyyy lmao floating text'}
+                                position={new THREE.Vector3(0, 0, 1)}
+                                fontSize={0.5}
+                                font={'Roboto'}
+                            />
+                        </Object>
+                        : <> </>
+                    }
+
+
+                    <Object color={'red'} opacity={0.1} wireframe={true}
+                        scale={1} position={projectsTarget}
+                        rotation={projectsTextRotation}
+                    >
+                        <Text text={'Projects'}
+                            position={textProject}
+                            rotation={projectsTextRotation}
+                            fontSize={0.5}
+                            font={'Roboto'}
                         />
-                    </Cube>
+                    </Object>
+
+                    <Object color={'white'} opacity={0.1} wireframe={true}
+                        scale={1} position={aboutTarget}  >
+                        <Text text={'About'}
+                            position={textProject}
+                            rotation={projectsTextRotation}
+                            fontSize={0.5}
+                            font={'Roboto'}
+                        />
+                    </Object>
 
                     <Cube color={'red'} position={new THREE.Vector3(0, 0, 0)} />
                     <Cube color={'green'} position={new THREE.Vector3(0, 1, 0)} />
@@ -226,5 +261,5 @@ const CameraControls = ({ target, position, ...props }) => {
 
 
 
-    return <orbitControls ref={controls} args={[camera, domElement]} />;
+    return <OrbitControls ref={controls} args={[camera, domElement]} />;
 };

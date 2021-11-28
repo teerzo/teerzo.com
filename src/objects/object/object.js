@@ -4,9 +4,9 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
 
-export default function Cube({color, position, rotation, ...props}) {
+export default function CmpObject({ color, position, rotation, ...props }) {
 
-    const [initialPosition, setInitPosition] = useState( position ? position : new THREE.Vector3(0,0,0));
+    const [initialPosition, setInitPosition] = useState(position ? position : new THREE.Vector3(0, 0, 0));
 
     const [lifeSpan, setLifeSpan] = useState(0);
     const [maxLifeSpan, setMaxLifeSpan] = useState(1);
@@ -22,24 +22,54 @@ export default function Cube({color, position, rotation, ...props}) {
     const [hovered, hover] = useState(false)
     const [clicked, click] = useState(false)
 
+    const [timerRand, setTimerRand] = useState(rand(10000,10000));
+    // const [timerRand, setTimerRand] = useState(rand(30000,60000));
+    const [zRand, setZRand] = useState(1);
+
+
     useEffect(() => {
 
         reset();
     }, [])
 
     // Subscribe this component to the render-loop, rotate the mesh every frame
-    useFrame((state, delta) => {
-        ref.current.rotation.x += (rotateDir[0] * rotateSpeed[0] * delta);
-        ref.current.rotation.y += (rotateDir[1] * rotateSpeed[1] * delta);
-        ref.current.rotation.z += (rotateDir[2] * rotateSpeed[2] * delta);
+    useFrame(({ camera }, delta) => {
 
-        ref.current.position.x += (moveDir[0] * moveSpeed[0] * delta);
-        ref.current.position.y += (moveDir[1] * moveSpeed[1] * delta);
-        ref.current.position.z += (moveDir[2] * moveSpeed[2] * delta);
+        let targetPosition = new THREE.Vector3().copy(position);
+
+        targetPosition.x = position.x + (Math.sin((Date.now()%timerRand)/timerRand * Math.PI * 2) * 2);
+        targetPosition.y = position.y + (Math.cos((Date.now()%timerRand)/timerRand * Math.PI * 2) * 2);
+
+        // ref.current.rotation.x += (rotateDir[0] * rotateSpeed[0] * delta);
+        // ref.current.rotation.y += (rotateDir[1] * rotateSpeed[1] * delta);
+        // ref.current.rotation.z += (rotateDir[2] * rotateSpeed[2] * delta);
+
+        // ref.current.position.x += (moveDir[0] * moveSpeed[0] * delta);
+        // ref.current.position.y += (moveDir[1] * moveSpeed[1] * delta);
+        // ref.current.position.z += (moveDir[2] * moveSpeed[2] * delta);
 
 
-        ref.current.position.lerp(position, 0.1);
+        ref.current.position.lerp(targetPosition, 0.1);
 
+
+        
+
+        // ref.current.position.x = (Math.sin((Date.now()%timerRand)/timerRand * Math.PI * zRand) * 1) + position.x;
+        // ref.current.position.y = (Math.cos((Date.now()%timerRand)/timerRand * Math.PI * zRand) * 1);
+
+
+        if (camera) {
+            // console.log('camera', camera);
+            // console.log('current', ref.current);
+            const targetQuaternion = camera.quaternion;
+
+
+            // if (!modelMesh.quaternion.equals(targetQuaternion)) {
+            if (!ref.current.quaternion.equals(targetQuaternion)) {
+                var step = 100 * delta;
+                ref.current.quaternion.rotateTowards(targetQuaternion, step);
+            }
+        }
 
 
         if (clicked) {
@@ -55,7 +85,6 @@ export default function Cube({color, position, rotation, ...props}) {
 
     function reset() {
 
-
         if (position) {
             // console.log('props', props);
             ref.current.position.x = position.x;
@@ -63,11 +92,25 @@ export default function Cube({color, position, rotation, ...props}) {
             ref.current.position.z = position.z;
         }
 
-        if( rotation ) {
-            ref.current.rotation.x = rotation.x;
-            ref.current.rotation.y = rotation.y;
-            ref.current.rotation.z = rotation.z;
-        }
+        // // const mSpeed = [rand(1, 3), rand(1, 3), 1];
+        // const mSpeed = [rand(5, 10), rand(5, 10), 20];
+        // // const mSpeed = [0,0,10];
+        // setMoveSpeed(mSpeed);
+
+
+
+        // // const mDir = [rand(-5, 5), rand(5, 5), rand(1, 5)];
+        // let mDir = [rand(-1, 1), rand(1, 1), -1];
+        // // mDir[3] = -1;
+        // // const mDir = [rand(-5, 5), rand(5, 5), -1];
+        // // const mDir = [0,0,-1];
+        // setMoveDir(mDir);
+
+        // if( rotation ) {
+        //     ref.current.rotation.x = rotation.x;
+        //     ref.current.rotation.y = rotation.y;
+        //     ref.current.rotation.z = rotation.z;
+        // }
 
         // ref.current.position.x = rand(-10, 10);
         // ref.current.position.y = rand(-20, 5);
@@ -76,11 +119,11 @@ export default function Cube({color, position, rotation, ...props}) {
         // const mLifeSpan = rand(10, 20);
         // setMaxLifeSpan(mLifeSpan);
 
-        const mSpeed = [0, 0, 0];
-        setMoveSpeed(mSpeed);
+        // const mSpeed = [0, 0, 0];
+        // setMoveSpeed(mSpeed);
 
-        const mDir = [0, 0, 0];
-        setMoveDir(mDir);
+        // const mDir = [0, 0, 0];
+        // setMoveDir(mDir);
 
         // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
         // setRotateSpeed(rSpeed);
@@ -92,9 +135,9 @@ export default function Cube({color, position, rotation, ...props}) {
     }
 
     function handleMeshClick(event) {
-        if( !clicked) {
+        if (!clicked) {
             click(true);
-        } 
+        }
 
         // const mSpeed = [rand(1, 3), rand(1, 3), 1];
         const mSpeed = [rand(5, 10), rand(5, 10), 20];
@@ -108,7 +151,7 @@ export default function Cube({color, position, rotation, ...props}) {
         // const mDir = [0,0,-1];
         setMoveDir(mDir);
 
-          // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+        // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
         // setRotateSpeed(rSpeed);
 
         // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
@@ -121,7 +164,7 @@ export default function Cube({color, position, rotation, ...props}) {
             {...props}
             ref={ref}
             scale={props.scale ? props.scale : 1}
-            >
+        >
             <boxGeometry args={[0.5, 0.5, 0.5]} />
             <meshStandardMaterial color={color} wireframe={props.wireframe ? props.wireframe : false} opacity={props.opacity ? props.opacity : 1} />
             {props.children}
