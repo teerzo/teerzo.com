@@ -1,11 +1,10 @@
+// Packages
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Canvas, useFrame, useLoader, extend, useThree } from '@react-three/fiber'
-import { Text } from "troika-three-text";
+import { Text } from '@react-three/drei';
 import * as THREE from 'three'
 
-// Register Text as a react-three-fiber element
-extend({ Text });
 
 const fonts = {
     // Tourney: "https://fonts.googleapis.com/css2?family=Tourney:wght@500;900&display=swap",
@@ -13,10 +12,10 @@ const fonts = {
     Roboto: "https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxM.woff",
 }
 
-function ThreeText(props) {
+export default function CmpText(props) {
     // State:
-    
-    const [position, setPosition] = useState(props.position ? props.position : new THREE.Vector3(0,0,0));
+
+    const [position, setPosition] = useState(props.position ? props.position : new THREE.Vector3(0, 0, 0));
     // const [rotation, setRotation] = useState(props.rotation);
     const [rotation, setRotation] = useState([0, 0, 0, 0]);
 
@@ -46,7 +45,7 @@ function ThreeText(props) {
         // setRotation(rot);
 
         // setRotation([ Math.sin(clock.getElapsedTime()) * 2, 100, 0, 0]);
-    
+
         // let size = fontSize;
         // size += Math.sin(clock.getElapsedTime()) * 0.005;
         // setFontSize(size);
@@ -54,7 +53,18 @@ function ThreeText(props) {
 
     return (
         <>
-            <text
+            <Text position={position}
+                rotation={rotation}
+                {...opts}
+                text={props.text}
+                font={fonts[opts.font]}
+                fontSize={fontSize}
+                anchorX="center"
+                anchorY="middle">
+                {props.text}
+            </Text>
+
+            {/* <text
                 position={position}
                 rotation={rotation}
                 {...opts}
@@ -67,9 +77,7 @@ function ThreeText(props) {
                 {opts.materialType === "MeshPhongMaterial" ? (
                     <meshPhongMaterial attach="material" color={opts.color} />
                 ) : null}
-            </text>
+            </text> */}
         </>
     );
 }
-
-export default ThreeText;

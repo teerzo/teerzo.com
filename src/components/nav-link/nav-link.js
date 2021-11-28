@@ -16,7 +16,7 @@ export default function NavLink({ to, ...props }) {
     const location = useLocation();
 
     useEffect(() => {
-        console.log('location', location);
+        // console.log('location', location);
     },[location]);
 
     const classes = cx( 
