@@ -3,6 +3,9 @@
 import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import Object from '../../objects/object';
+import * as THREE from 'three'
+import Text from '../../objects/text';
 
 export default function CubeWall(props) {
 
@@ -24,9 +27,9 @@ export default function CubeWall(props) {
         for (let r = 1; r <= rows; r++) {
             for (let c = 1; c <= cols; c++) {
                 index += 1;
-                const x =  (  r - ( rows * 0.5) - 0.5) * offset;
-                const y =  (  c - ( cols * 0.5) - 0.5) * offset;
-                
+                const x = (r - (rows * 0.5) - 0.5) * offset;
+                const y = (c - (cols * 0.5) - 0.5) * offset;
+
 
                 // const x =  r - ( rows * 0.5) - 0.5 ;
                 // const y =  c - ( cols * 0.5) - 0.5 ;
@@ -54,9 +57,9 @@ function rand(min, max) {
 function Box(props) {
 
 
-    const [lerpRand, setLerpRand] = useState(rand(-0.5,0.5)); 
+    const [lerpRand, setLerpRand] = useState(rand(-0.5, 0.5));
     const [zRand, setZRand] = useState(1);
-    const [timerRand, setTimerRand] = useState(rand(30000,60000));
+    const [timerRand, setTimerRand] = useState(rand(30000, 60000));
 
     const [initialPosition, setInitPosition] = useState(props.position);
 
@@ -102,7 +105,7 @@ function Box(props) {
 
         // ref.current.position.x = (Math.sin((Date.now()%60000)/60000 * Math.PI * 2) * 1);
         // ref.current.position.y = (Math.cos((Date.now()%60000)/60000 * Math.PI * 2) * 1);
-        ref.current.position.z = (Math.sin((Date.now()%timerRand)/timerRand * Math.PI * zRand) * 2) - 3;
+        ref.current.position.z = (Math.sin((Date.now() % timerRand) / timerRand * Math.PI * zRand) * 2) - 3;
 
 
         if (clicked) {
@@ -139,10 +142,10 @@ function Box(props) {
         // const mDir = [0, 0, 0];
         // setMoveDir(mDir);
 
-        const rSpeed = [0,0,0];
+        const rSpeed = [0, 0, 0];
         setRotateSpeed(rSpeed);
 
-        const rDir = [0,0,0];
+        const rDir = [0, 0, 0];
         setRotateDir(rDir);
 
         ref.current.rotation.x = 0;
@@ -153,9 +156,9 @@ function Box(props) {
     }
 
     function handleMeshClick(event) {
-        if( !clicked) {
+        if (!clicked) {
             click(true);
-        } 
+        }
 
         // // const mSpeed = [rand(1, 3), rand(1, 3), 1];
         // const mSpeed = [rand(5, 10), rand(5, 10), 20];
@@ -169,7 +172,7 @@ function Box(props) {
         // // const mDir = [0,0,-1];
         // setMoveDir(mDir);
 
-          const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+        const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
         setRotateSpeed(rSpeed);
 
         const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
@@ -183,9 +186,9 @@ function Box(props) {
             ref={ref}
             scale={1}
             onClick={handleMeshClick}
-            // onPointerOver={(event) => hover(true)}
-            // onPointerOut={(event) => hover(false)}
-            >
+        // onPointerOver={(event) => hover(true)}
+        // onPointerOut={(event) => hover(false)}
+        >
             <boxGeometry args={[0.5, 0.5, 0.5]} />
             {/* <meshStandardMaterial color={ props.color ? 'red' : 'orange'} opacity={0.5} /> */}
             <meshNormalMaterial />
@@ -226,7 +229,7 @@ function StaticBox(props) {
         ref.current.position.y += (moveDir[1] * moveSpeed[1] * delta);
         ref.current.position.z += (moveDir[2] * moveSpeed[2] * delta);
 
-      
+
 
 
         if (clicked) {
@@ -273,9 +276,9 @@ function StaticBox(props) {
     }
 
     function handleMeshClick(event) {
-        if( !clicked) {
+        if (!clicked) {
             click(true);
-        } 
+        }
 
         // const mSpeed = [rand(1, 3), rand(1, 3), 1];
         const mSpeed = [rand(5, 10), rand(5, 10), 20];
@@ -289,7 +292,7 @@ function StaticBox(props) {
         // const mDir = [0,0,-1];
         setMoveDir(mDir);
 
-          // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+        // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
         // setRotateSpeed(rSpeed);
 
         // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
@@ -302,9 +305,9 @@ function StaticBox(props) {
             {...props}
             ref={ref}
             scale={1}
-            >
+        >
             <boxGeometry args={[0.5, 0.5, 0.5]} />
-            <meshStandardMaterial color={ 'red'} opacity={0.5} />
+            <meshStandardMaterial color={'red'} opacity={0.5} />
         </mesh>
     )
 }
