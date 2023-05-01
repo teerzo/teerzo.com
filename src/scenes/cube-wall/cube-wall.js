@@ -38,7 +38,7 @@ export default function CubeWall(props) {
 
                 const position = [x, y, z];
                 // console.log('positoin', position);
-                arr.push(<Box index={index} position={position} />);
+                arr.push(<Box key={index} index={index} position={position} />);
             }
         }
         setCubes(arr);
@@ -56,6 +56,7 @@ function rand(min, max) {
 }
 function Box(props) {
 
+    const [color, setColor] = useState('#FFFFFF');
 
     const [lerpRand, setLerpRand] = useState(rand(-0.5, 0.5));
     const [zRand, setZRand] = useState(1);
@@ -78,7 +79,7 @@ function Box(props) {
     const [clicked, click] = useState(false)
 
     useEffect(() => {
-
+        setColor(getRandomColor());
         reset();
     }, [])
 
@@ -160,18 +161,6 @@ function Box(props) {
             click(true);
         }
 
-        // // const mSpeed = [rand(1, 3), rand(1, 3), 1];
-        // const mSpeed = [rand(5, 10), rand(5, 10), 20];
-        // // const mSpeed = [0,0,10];
-        // setMoveSpeed(mSpeed);
-
-        // // const mDir = [rand(-5, 5), rand(5, 5), rand(1, 5)];
-        // let mDir = [rand(-1, 1), rand(1, 1), -1];
-        // // mDir[3] = -1;
-        // // const mDir = [rand(-5, 5), rand(5, 5), -1];
-        // // const mDir = [0,0,-1];
-        // setMoveDir(mDir);
-
         const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
         setRotateSpeed(rSpeed);
 
@@ -186,128 +175,138 @@ function Box(props) {
             ref={ref}
             scale={1}
             onClick={handleMeshClick}
-        // onPointerOver={(event) => hover(true)}
-        // onPointerOut={(event) => hover(false)}
+            onPointerOver={(event) => hover(true)}
+            onPointerOut={(event) => hover(false)}
         >
             <boxGeometry args={[0.5, 0.5, 0.5]} />
-            {/* <meshStandardMaterial color={ props.color ? 'red' : 'orange'} opacity={0.5} /> */}
-            <meshNormalMaterial />
+            <meshStandardMaterial emissive={ hovered ? '#FF0000': '#000000' } color={ props.color ? props.color: color } opacity={0.5} />
+            {/* <meshNormalMaterial /> */}
         </mesh>
     )
 }
 
-function StaticBox(props) {
+// function StaticBox(props) {
 
-    const [initialPosition, setInitPosition] = useState(props.position);
+//     const [initialPosition, setInitPosition] = useState(props.position);
 
-    const [lifeSpan, setLifeSpan] = useState(0);
-    const [maxLifeSpan, setMaxLifeSpan] = useState(1);
+//     const [lifeSpan, setLifeSpan] = useState(0);
+//     const [maxLifeSpan, setMaxLifeSpan] = useState(1);
 
-    const [moveSpeed, setMoveSpeed] = useState([10, 10, 10]);
-    const [moveDir, setMoveDir] = useState([0, 0, 0]);
-    const [rotateSpeed, setRotateSpeed] = useState([0, 0, 0]);
-    const [rotateDir, setRotateDir] = useState([0, 0, 0]);
+//     const [moveSpeed, setMoveSpeed] = useState([10, 10, 10]);
+//     const [moveDir, setMoveDir] = useState([0, 0, 0]);
+//     const [rotateSpeed, setRotateSpeed] = useState([0, 0, 0]);
+//     const [rotateDir, setRotateDir] = useState([0, 0, 0]);
 
-    // This reference gives us direct access to the THREE.Mesh object
-    const ref = useRef()
-    // Hold state for hovered and clicked events
-    const [hovered, hover] = useState(false)
-    const [clicked, click] = useState(false)
+//     // This reference gives us direct access to the THREE.Mesh object
+//     const ref = useRef()
+//     // Hold state for hovered and clicked events
+//     const [hovered, hover] = useState(false)
+//     const [clicked, click] = useState(false)
 
-    useEffect(() => {
+//     useEffect(() => {
 
-        reset();
-    }, [])
+//         reset();
+//     }, [])
 
-    // Subscribe this component to the render-loop, rotate the mesh every frame
-    useFrame((state, delta) => {
-        ref.current.rotation.x += (rotateDir[0] * rotateSpeed[0] * delta);
-        ref.current.rotation.y += (rotateDir[1] * rotateSpeed[1] * delta);
-        ref.current.rotation.z += (rotateDir[2] * rotateSpeed[2] * delta);
+//     // Subscribe this component to the render-loop, rotate the mesh every frame
+//     useFrame((state, delta) => {
+//         ref.current.rotation.x += (rotateDir[0] * rotateSpeed[0] * delta);
+//         ref.current.rotation.y += (rotateDir[1] * rotateSpeed[1] * delta);
+//         ref.current.rotation.z += (rotateDir[2] * rotateSpeed[2] * delta);
 
-        ref.current.position.x += (moveDir[0] * moveSpeed[0] * delta);
-        ref.current.position.y += (moveDir[1] * moveSpeed[1] * delta);
-        ref.current.position.z += (moveDir[2] * moveSpeed[2] * delta);
-
-
+//         ref.current.position.x += (moveDir[0] * moveSpeed[0] * delta);
+//         ref.current.position.y += (moveDir[1] * moveSpeed[1] * delta);
+//         ref.current.position.z += (moveDir[2] * moveSpeed[2] * delta);
 
 
-        if (clicked) {
-            let lSpan = lifeSpan + 1.0 * delta;
-            if (lSpan >= maxLifeSpan) {
-                reset();
-            }
-            else {
-                setLifeSpan(lSpan);
-            }
-        }
-    })
-
-    function reset() {
 
 
-        if (props.position) {
-            // console.log('props', props);
-            ref.current.position.x = initialPosition[0];
-            ref.current.position.y = initialPosition[1];
-            ref.current.position.z = initialPosition[2];
-        }
+//         if (clicked) {
+//             let lSpan = lifeSpan + 1.0 * delta;
+//             if (lSpan >= maxLifeSpan) {
+//                 reset();
+//             }
+//             else {
+//                 setLifeSpan(lSpan);
+//             }
+//         }
+//     })
 
-        // ref.current.position.x = rand(-10, 10);
-        // ref.current.position.y = rand(-20, 5);
-        // ref.current.position.z = rand(-10, 0);
+//     function reset() {
 
-        // const mLifeSpan = rand(10, 20);
-        // setMaxLifeSpan(mLifeSpan);
 
-        const mSpeed = [0, 0, 0];
-        setMoveSpeed(mSpeed);
+//         if (props.position) {
+//             // console.log('props', props);
+//             ref.current.position.x = initialPosition[0];
+//             ref.current.position.y = initialPosition[1];
+//             ref.current.position.z = initialPosition[2];
+//         }
 
-        const mDir = [0, 0, 0];
-        setMoveDir(mDir);
+//         // ref.current.position.x = rand(-10, 10);
+//         // ref.current.position.y = rand(-20, 5);
+//         // ref.current.position.z = rand(-10, 0);
 
-        // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
-        // setRotateSpeed(rSpeed);
+//         // const mLifeSpan = rand(10, 20);
+//         // setMaxLifeSpan(mLifeSpan);
 
-        // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
-        // setRotateDir(rDir);
+//         const mSpeed = [0, 0, 0];
+//         setMoveSpeed(mSpeed);
 
-        setLifeSpan(0);
+//         const mDir = [0, 0, 0];
+//         setMoveDir(mDir);
+
+//         // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+//         // setRotateSpeed(rSpeed);
+
+//         // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
+//         // setRotateDir(rDir);
+
+//         setLifeSpan(0);
+//     }
+
+//     function handleMeshClick(event) {
+//         if (!clicked) {
+//             click(true);
+//         }
+
+//         // const mSpeed = [rand(1, 3), rand(1, 3), 1];
+//         const mSpeed = [rand(5, 10), rand(5, 10), 20];
+//         // const mSpeed = [0,0,10];
+//         setMoveSpeed(mSpeed);
+
+//         // const mDir = [rand(-5, 5), rand(5, 5), rand(1, 5)];
+//         let mDir = [rand(-1, 1), rand(1, 1), -1];
+//         // mDir[3] = -1;
+//         // const mDir = [rand(-5, 5), rand(5, 5), -1];
+//         // const mDir = [0,0,-1];
+//         setMoveDir(mDir);
+
+//         // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
+//         // setRotateSpeed(rSpeed);
+
+//         // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
+//         // setRotateDir(rDir);
+//     }
+
+//     // Return the view, these are regular Threejs elements expressed in JSX
+//     return (
+//         <mesh
+//             {...props}
+//             ref={ref}
+//             scale={1}
+//         >
+//             <boxGeometry args={[0.5, 0.5, 0.5]} />
+//             <meshStandardMaterial color={'red'} opacity={0.5} />
+//         </mesh>
+//     )
+// }
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
     }
-
-    function handleMeshClick(event) {
-        if (!clicked) {
-            click(true);
-        }
-
-        // const mSpeed = [rand(1, 3), rand(1, 3), 1];
-        const mSpeed = [rand(5, 10), rand(5, 10), 20];
-        // const mSpeed = [0,0,10];
-        setMoveSpeed(mSpeed);
-
-        // const mDir = [rand(-5, 5), rand(5, 5), rand(1, 5)];
-        let mDir = [rand(-1, 1), rand(1, 1), -1];
-        // mDir[3] = -1;
-        // const mDir = [rand(-5, 5), rand(5, 5), -1];
-        // const mDir = [0,0,-1];
-        setMoveDir(mDir);
-
-        // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
-        // setRotateSpeed(rSpeed);
-
-        // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
-        // setRotateDir(rDir);
-    }
-
-    // Return the view, these are regular Threejs elements expressed in JSX
-    return (
-        <mesh
-            {...props}
-            ref={ref}
-            scale={1}
-        >
-            <boxGeometry args={[0.5, 0.5, 0.5]} />
-            <meshStandardMaterial color={'red'} opacity={0.5} />
-        </mesh>
-    )
+    return color;
 }
+
