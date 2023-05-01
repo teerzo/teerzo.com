@@ -21,7 +21,7 @@ jobs:
           run: yarn build
 
         - name: Deploy
-          uses: reggionick/s3-deploy@v3
+          uses: reggionick/s3-deploy@3.2.0
           with:
             folder: build
             bucket: ${{ secrets.S3_BUCKET }}
