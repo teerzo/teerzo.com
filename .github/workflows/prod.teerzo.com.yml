@@ -23,7 +23,7 @@ jobs:
           run: yarn build
 
         - name: Deploy
-          uses: teerzo/teerzo-s3-deploy@v3.2.1
+          uses: teerzo/teerzo-s3-deploy@v3.2.2
           with:
             folder: build
             bucket: ${{ secrets.S3_BUCKET }}
