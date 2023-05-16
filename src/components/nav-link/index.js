@@ -1,1 +1,1 @@
-export {default} from './nav-link.js';
+export {default} from './nav-link.jsx';

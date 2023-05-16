@@ -1,10 +1,10 @@
 
 import { Routes, Route } from "react-router-dom";
 
-import Home from '../../routes/home';
-import Projects from '../../routes/projects';
-import About from '../../routes/about';
-import Nav from 'components/nav';
+import Home from '@routes/home';
+import Projects from '@routes/projects';
+import About from '@routes/about';
+import Nav from '@components/nav';
 
 export default function Router({ ...props }) {
 

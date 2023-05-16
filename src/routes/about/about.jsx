@@ -5,7 +5,7 @@ import { FaGithub, FaTwitter } from "react-icons/fa";
 import OutLink from '../../components/out-link';
 import './about.scss';
 
-import Footer from 'components/footer';
+import Footer from '@components/footer';
 
 export default function About({ ...props }) {
 

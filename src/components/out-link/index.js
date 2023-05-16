@@ -1,1 +1,1 @@
-export {default} from './out-link.js';
+export {default} from './out-link.jsx';

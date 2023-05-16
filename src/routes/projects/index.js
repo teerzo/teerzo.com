@@ -1,1 +1,1 @@
-export {default} from './projects.js';
+export {default} from './projects.jsx';
