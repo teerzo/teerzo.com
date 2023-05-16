@@ -91,30 +91,6 @@ export default function Cube({color, position, rotation, ...props}) {
         setLifeSpan(0);
     }
 
-    function handleMeshClick(event) {
-        if( !clicked) {
-            click(true);
-        } 
-
-        // const mSpeed = [rand(1, 3), rand(1, 3), 1];
-        const mSpeed = [rand(5, 10), rand(5, 10), 20];
-        // const mSpeed = [0,0,10];
-        setMoveSpeed(mSpeed);
-
-        // const mDir = [rand(-5, 5), rand(5, 5), rand(1, 5)];
-        let mDir = [rand(-1, 1), rand(1, 1), -1];
-        // mDir[3] = -1;
-        // const mDir = [rand(-5, 5), rand(5, 5), -1];
-        // const mDir = [0,0,-1];
-        setMoveDir(mDir);
-
-          // const rSpeed = [rand(1, 3), rand(1, 3), rand(1, 3)];
-        // setRotateSpeed(rSpeed);
-
-        // const rDir = [rand(0, 1), rand(0, 1), rand(0, 0)];
-        // setRotateDir(rDir);
-    }
-
     // Return the view, these are regular Threejs elements expressed in JSX
     return (
         <mesh

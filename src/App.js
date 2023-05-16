@@ -1,22 +1,20 @@
-import './App.scss';
 
-// import { BrowserRouter } from "react-router-dom";
-// import Nav from './components/nav';
-import Background from './components/background';
-// import Page from './components/page';
-import React, { useRef, useState, useEffect } from 'react'
-
+import React, { useRef, useState, useEffect, Suspense } from 'react'
 
 import Router from './components/router';
+import Background from './components/background';
+
+import './App.scss';
 
 export default function App() {
+
+  const [speed, set] = useState(1);
 
   return (
     <>
       <div className="App">
-        <Background >
-          <Router />
-        </Background>
+        <Background speed={speed} />
+        <Router />
       </div>
     </>
   );

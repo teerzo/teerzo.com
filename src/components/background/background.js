@@ -1,10 +1,13 @@
 // Packages
 import ReactDOM from 'react-dom'
-import React, { useRef, useState, useEffect } from 'react'
+import React, { Suspense, useRef, useState, useEffect, useMemo } from 'react'
 import { Canvas, useFrame, useLoader, extend, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Plane } from '@react-three/drei';
 import { useLocation } from 'react-router-dom';
+import { LayerMaterial, Depth, Fresnel } from "lamina";
+
+import CustomLayer from './custom-layer';
 
 // Components
 import useReactPath from '../../helpers/useReactPath';
@@ -19,16 +22,37 @@ import Text from '../../objects/text';
 // Styles
 import './background.scss';
 
+// Shaders
+import vertexShader from 'shaders/vertexShader';
+import fragmentShader from 'shaders/fragmentShader';
+
+extend({ CustomLayer });
+
+
 export default function Background({ route, ...props }) {
+    return (
+        <div id="background" className="background">
+            <Suspense fallback={null}>
+                <Scene route={route} {...props} />
+            </Suspense>
+        </div>
+    )
+}
+
+function Scene({ route, ...props }) {
     let location = useLocation();
 
     const [timer, setTimer] = useState(0);
     const [page, setPage] = useState(location ? location.pathname.replace('/', '') : '');
+    const [lastPage, setLastPage] = useState(null);
 
     const defaultCamera = {
         home: {
-            target: new THREE.Vector3(0, 0, 0),
-            position: new THREE.Vector3(0, 0, 4)
+            // target: new THREE.Vector3(0, 1, 0),
+            // position: new THREE.Vector3(0, 0, 4)
+
+            target: new THREE.Vector3(-2, 0, 0),
+            position: new THREE.Vector3(-2, 0, 4)
         },
         projects: {
             target: new THREE.Vector3(0, -1.5, 0),
@@ -40,19 +64,15 @@ export default function Background({ route, ...props }) {
         }
     }
 
-
-
     const [target, setTarget] = useState(getPageDefault().target);
     const [cameraPos, setCameraPos] = useState(getPageDefault().position);
 
 
+    // const [projectsTarget, setProjectsTarget] = useState(defaultCamera.projects.target);
+    // const [aboutTarget, setAboutTarget] = useState(defaultCamera.about.target);
 
-
-    const [projectsTarget, setProjectsTarget] = useState(new THREE.Vector3(0, 0, 0));
-    const [aboutTarget, setAboutTarget] = useState(new THREE.Vector3(0, 0, 0));
-
-    const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
-    const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(45, 0, 0))
+    // const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
+    // const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(45, 0, 0))
 
     useEffect(() => {
         changePage();
@@ -60,16 +80,14 @@ export default function Background({ route, ...props }) {
 
 
     useEffect(() => {
-        // console.log('location');
         let str = location.pathname.replace('/', '');
+        setLastPage(page);
         setPage(str);
     }, [location])
 
 
     function getPageDefault() {
-        // console.log('page', page);
         if (page !== null) {
-
             if (page === '') {
                 return defaultCamera.home;
             }
@@ -80,143 +98,89 @@ export default function Background({ route, ...props }) {
                 return defaultCamera.about;
             }
         }
-        return {
-            target: new THREE.Vector3(0, 0, 0),
-            position: new THREE.Vector3(0, 0, 0)
-        }
+        // return {
+        //     target: new THREE.Vector3(0, 0, 0),
+        //     position: new THREE.Vector3(0, 0, 0)
+        // }
     }
 
     function changePage() {
         setTarget(getPageDefault().target);
         setCameraPos(getPageDefault().position);
 
-        if (page === '') {
-            setProjectsTarget(new THREE.Vector3(0, 10, 0));
-            setAboutTarget(new THREE.Vector3(2, 10, 0));
-        }
-        else if (page === 'projects') {
-            setProjectsTarget(new THREE.Vector3(0, 0, 0));
-            setAboutTarget(new THREE.Vector3(1, 10, 0));
-        }
-        else if (page === 'about') {
-            setProjectsTarget(new THREE.Vector3(0, 10, 0));
-            setAboutTarget(new THREE.Vector3(0,0, 0));
-        }
-
+        // if (page === '') {
+        //     setProjectsTarget(new THREE.Vector3(0, 10, 0));
+        //     setAboutTarget(new THREE.Vector3(2, 10, 0));
+        // }
+        // else if (page === 'projects') {
+        //     setProjectsTarget(new THREE.Vector3(0, 0, 0));
+        //     setAboutTarget(new THREE.Vector3(1, 10, 0));
+        // }
+        // else if (page === 'about') {
+        //     setProjectsTarget(new THREE.Vector3(0, 10, 0));
+        //     setAboutTarget(new THREE.Vector3(0, 0, 0));
+        // }
     }
 
     return (
-        <div className="background-parent">
-            <div id="background" className="background">
-                <Canvas gl={{ antialias: true }} pixelRatio={window.devicePixelRatio}>
-                    <ambientLight />
-                    <pointLight position={[10, 10, 10]} />
-                    <CameraControls target={target} position={cameraPos} />
+        <Canvas gl={{ antialias: true }} dpr={window.devicePixelRatio}>
+            {/* Lights */}
+            <ambientLight intensity={0.03} />
+            <directionalLight position={[0.3, 0.15, 1]} intensity={2} />
 
+            {/* Cameras */}
+            <CameraControls page={page} lastPage={lastPage} target={target} position={cameraPos} />
 
-                    <CubeWall />
+            {/* Objects */}
+            <CubeWall />
+            {/* <Planet /> */}
 
-                    {page === '' ?
-                        <Object color={'red'} opacity={0.1} wireframe={true}
-                            scale={1} position={new THREE.Vector3(0, 0, 0)}
-                        >
-                            <Text text={'Ayyyy lmao floating text'}
-                                position={new THREE.Vector3(0, 0, 1)}
-                                fontSize={0.5}
-                                font={'Roboto'}
-                            />
-                        </Object>
-                        : <> </>
-                    }
+            {/* {page === '' ?
+                <Object color={'red'} opacity={0.1} wireframe={true}
+                    scale={1} position={new THREE.Vector3(0, 0, 0)}
+                >
+                    <Text text={'Ayyyy lmao floating text'}
+                        position={new THREE.Vector3(0, 0, 1)}
+                        fontSize={0.5}
+                        font={'Roboto'}
+                    />
+                </Object>
+                : <> </>
+            }
 
+            <Object color={'red'} opacity={0.1} wireframe={true}
+                scale={1} position={projectsTarget}
+                rotation={projectsTextRotation}
+            >
+                <Text text={'Projects'}
+                    position={textProject}
+                    rotation={projectsTextRotation}
+                    fontSize={0.5}
+                    font={'Roboto'}
+                />
+            </Object>
 
-                    <Object color={'red'} opacity={0.1} wireframe={true}
-                        scale={1} position={projectsTarget}
-                        rotation={projectsTextRotation}
-                    >
-                        <Text text={'Projects'}
-                            position={textProject}
-                            rotation={projectsTextRotation}
-                            fontSize={0.5}
-                            font={'Roboto'}
-                        />
-                    </Object>
+            <Object color={'white'} opacity={0.1} wireframe={true}
+                scale={1} position={aboutTarget}  >
+                <Text text={'About'}
+                    position={textProject}
+                    rotation={projectsTextRotation}
+                    fontSize={0.5}
+                    font={'Roboto'}
+                />
+            </Object> */}
 
-                    <Object color={'white'} opacity={0.1} wireframe={true}
-                        scale={1} position={aboutTarget}  >
-                        <Text text={'About'}
-                            position={textProject}
-                            rotation={projectsTextRotation}
-                            fontSize={0.5}
-                            font={'Roboto'}
-                        />
-                    </Object>
+            {/* <Cube color={'red'} position={target} scale={0.5} /> */}
+            {/* <Cube color={'green'} position={new THREE.Vector3(0, 1, 0)} />
+            <Cube color={'blue'} position={new THREE.Vector3(1, 0, 0)} />
+            <Cube color={'yellow'} position={new THREE.Vector3(0, -1, 0)} />
+            <Cube color={'orange'} position={new THREE.Vector3(-1, 0, 0)} /> */}
 
-                    <Cube color={'red'} position={new THREE.Vector3(0, 0, 0)} />
-                    <Cube color={'green'} position={new THREE.Vector3(0, 1, 0)} />
-                    <Cube color={'blue'} position={new THREE.Vector3(1, 0, 0)} />
-                    <Cube color={'yellow'} position={new THREE.Vector3(0, -1, 0)} />
-                    <Cube color={'orange'} position={new THREE.Vector3(-1, 0, 0)} />
-
-
-
-                </Canvas>
-            </div>
-            {/* <div className="buttons">
-                <button onClick={swapPage}> Home </button>
-                <button onClick={swapPage}> Projects </button>
-            </div> */}
-            {props.children}
-        </div>
+        </Canvas>
     )
-}
+};
 
-function HomeCamera() {
-    // This one makes the camera move in and out
-    useFrame(({ clock, camera }) => {
-        const target = new THREE.Vector3(0, 0, 6);
-        const targetPos = new THREE.Vector3(0, 0, 5);
-
-        const cameraPos = camera.position;
-
-        // console.log('camera pos', cameraPos);
-        let lerpPosition = new THREE.Vector3(0, 0, 0).copy(cameraPos);
-        let time = Math.sin(((Date.now() % 10000) / 10000 * Math.PI * 1) * 0.5) - 1;
-
-
-        lerpPosition.lerpVectors(targetPos, target, Math.sin(clock.getElapsedTime()));
-
-        // console.log('lerp position', lerpPosition);
-
-        camera.position.x = lerpPosition.x;
-        camera.position.y = lerpPosition.y;
-        camera.position.z = lerpPosition.z;
-        console.log('camera', camera);
-
-        // camera.target.position.x += Math.sin(clock.getElapsedTime()) * 1;
-
-        // console.log('camera', camera.position);
-
-        // camera.position.z = 50 + Math.sin(clock.getElapsedTime()) * 5
-    })
-    return null
-}
-
-
-function ProjectDolly() {
-    // This one makes the camera move in and out
-    useFrame(({ clock, camera }) => {
-
-
-        camera.position.x = 0 + Math.sin(clock.getElapsedTime()) * 5
-    })
-    return null
-}
-
-
-
-
-const CameraControls = ({ target, position, ...props }) => {
+const CameraControls = ({ page, target, position, ...props }) => {
     // Get a reference to the Three.js Camera, and the canvas html element.
     // We need these to setup the OrbitControls component.
     // https://threejs.org/docs/#examples/en/controls/OrbitControls
@@ -226,40 +190,114 @@ const CameraControls = ({ target, position, ...props }) => {
     } = useThree();
     // Ref to the controls, so that we can update them on every frame using useFrame
     const controls = useRef();
+
+    const [lerping, setLerp] = useState(false);
+
+    useEffect(() => {
+        if (camera.position !== position) {
+            startLerp();
+        }
+    }, [target, position])
+
     useFrame(({ clock, camera }) => {
-        controls.current.enabled = false;
+        // const num = Math.sin(clock.getElapsedTime());
+        if (lerping) {
+            controls.current.target.lerp(target, 0.001);
+            camera.position.lerp(position, 0.001);
 
-        // console.log('controls', controls.current);
-
-        // const currentPos = 
-
-
-        //     // lerp to target position
-        // lerpPosition.lerpVectors(targetPos, target, Math.sin(clock.getElapsedTime()));
-
-        // // console.log('lerp position', lerpPosition);
-
-        // camera.position.x = lerpPosition.x;
-        // camera.position.y = lerpPosition.y;
-        // camera.position.z = lerpPosition.z;
-
-        const num = Math.sin(clock.getElapsedTime());
-        // console.log('num', num);
-
-        controls.current.target.lerp(target, 0.1);
-        // controls.current.position0.lerp(position, 1);
-
-        // console.log('camera', camera);
-        camera.position.lerp(position, 0.1);
-
-
-        // controls.current.position0.x += Math.sin(clock.getElapsedTime());
-
+            checkDistance(camera.position, position);
+        }
         controls.current.update()
     });
 
+    function startLerp() {
+        setLerp(true);
+        controls.current.enabled = false;
+    }
 
+    function endLerp() {
+        setLerp(false);
+        controls.current.enabled = true;
+    }
 
+    function checkDistance( a, b) {
+        if( a === position) {
+            endLerp();
+        }
+        else if( a.distanceTo(b) < 0.1) {
+            endLerp();
+        } 
+    }
 
     return <OrbitControls ref={controls} args={[camera, domElement]} />;
 };
+
+function Planet() {
+    const materialRef = useRef();
+    const mesh = useRef();
+
+    const mapping = ['uv'];
+
+
+    useFrame((state) => {
+        const { clock } = state;
+        // materialRef.current.time = clock.getElapsedTime();
+        mesh.current.material.uniforms.u_time.value = clock.getElapsedTime();
+    });
+
+    const uniforms = useMemo(
+        () => ({
+            u_time: { value: 0.0 },
+            u_colorA: { value: 'vec3(0.071,0.302,0.847)' },
+            // u_colorA: { value: '#124dd8' },
+            u_colorB: { value: '0x2bffe7' },
+            // u_colorB: { value: '#2bffe7' },
+            u_cloudTint: { value: '0x001741' },
+            // u_cloudTint: { value: '#001741' },
+            u_gain: { value: 0.5 },
+            u_lacunarity: { value: 2.0 },
+
+            // static u_colorA = "#124dd8";
+            // static u_colorB = "#2bffe7";
+            // static u_cloudTint = "#001741";
+            // static u_gain = 0.5;
+            // static u_lacunarity = 2.0;
+            // static u_time = 0.0;
+        }), []
+    );
+
+    return (
+        <>
+            <Cube color={'red'} position={new THREE.Vector3(0, -1, 0)} scale={0.5} />
+
+            <mesh ref={mesh} position={[0, 0, 0]} rotation={[0, Math.PI, 0]} scale={0.5}>
+                <icosahedronGeometry args={[2, 11]} />
+                <shaderMaterial
+                    fragmentShader={fragmentShader}
+                    vertexShader={vertexShader}
+                    uniforms={uniforms}
+                // wireframe
+                />
+                {/* 
+                <LayerMaterial lighting="lambert">
+                    <customLayer ref={materialRef} time={0.0} lacunarity={2.3} args={[mapping]} /> 
+                </LayerMaterial> */}
+            </mesh>
+        </>
+    )
+}
+
+// <LayerMaterial lighting="lambert">
+//     {/* First layer is our own custom layer that's based of the FBM shader */}
+//     {/* 
+//        Notice how we can use *any* uniforms as prop here 👇
+//        You can tweak the colors by adding a colorA or colorB prop!
+//     */}
+//     {/* <customLayer ref={materialRef} time={0.0} lacunarity={2.3} /> */}
+//     {/* {useCustomLayer} */}
+//     {/* Second layer is a depth based gradient that we "add" on top of our custom layer*/}
+//     <Depth colorA="blue" colorB="aqua" alpha={0.9} mode="add" />
+//     {/* Third Layer is a Fresnel shading effect that we add on*/}
+//     <Fresnel color="#FEB3D9" mode="add" />
+// </LayerMaterial>
+
