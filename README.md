@@ -1,12 +1,12 @@
-# Getting Started with Create React App
+# Description
+
+Live at [teerzo.com](https://teerzo.com)
+Dev build [dev.teerzo.com](https://dev.teerzo.com)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 
 Trello task tracking:
 https://trello.com/b/FETfcxxn/teerzocom
 
-Deployment to AWS s3/Cloudfront via github actions/s3-deploy 
-(Currently broken)
-
-........
+Deploying to s3 bucket via github actions
+Hosted on s3/Cloudfront/Route 53
