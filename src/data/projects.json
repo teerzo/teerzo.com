@@ -4,5 +4,11 @@
         "url": "https://jungleinmyplants.com",
         "img": "jungle.png",
         "imgLow": "jungle-low.png"
+    },
+    {
+        "title": "Starwars Galaxies tools",
+        "url": "https://swg.teerzo.com",
+        "img": "jungle.png",
+        "imgLow": "jungle-low.png"
     }
 ]
