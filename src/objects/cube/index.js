@@ -1,1 +1,1 @@
-export {default} from './cube.js';
+export {default} from './cube.jsx';

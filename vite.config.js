@@ -11,22 +11,3 @@ export default defineConfig({
     ],
   },
 })
-
-
-// {
-//     "compilerOptions": {
-//         "baseUrl": "src"
-//     },
-//     "include": [
-//         "src"
-//     ]
-// }
-
-// // https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [react()],
-//   root: 'src',
-//   // build: {
-//   //   outDir: '../dist'
-//   // }
-// })

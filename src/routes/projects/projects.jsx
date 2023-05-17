@@ -52,13 +52,13 @@ function ProjectCard({ title, url, img, imgLow, ...props }) {
 
     useEffect(() => {
         //preloading image
-        // const low = `${process.env.PUBLIC_URL}/images/${imgLow}`;
-        // setSrcLow(low);
+        const low = `/images/${imgLow}`;
+        setSrcLow(low);
     }, []);
 
     useEffect(() => {
-        // const high = `${process.env.PUBLIC_URL}/images/${img}`;
-        // setSrc(high);
+        const high = `/images/${img}`;
+        setSrc(high);
     }, [srcLow]);
 
     return (
