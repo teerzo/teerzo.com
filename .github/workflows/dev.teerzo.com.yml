@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: yarn
+        run: npm install
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -29,7 +29,5 @@ jobs:
           aws-region: ${{ secrets.S3_BUCKET_REGION }}
 
       - name: Deploy dashboard to bucket
-        run: aws s3 sync build/ s3://${{ secrets.S3_BUCKET }}
-
-      # - name: Invalidate dashboard cloudfront
-      #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/"
+        run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }}
+        

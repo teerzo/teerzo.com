@@ -17,10 +17,10 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: yarn
+        run: npm install
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -30,21 +30,5 @@ jobs:
           aws-region: ${{ secrets.S3_BUCKET_REGION }}
 
       - name: Deploy dashboard to bucket
-        run: aws s3 sync build/ s3://${{ secrets.S3_BUCKET }}
-
-      # - name: Invalidate dashboard cloudfront
-      #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/"
-
-
-        # - name: Deploy
-        #   uses: teerzo/teerzo-s3-deploy@v3.2.10
-        #   with:
-        #     folder: build
-        #     bucket: ${{ secrets.S3_BUCKET }}
-        #     bucket-region: ${{ secrets.S3_BUCKET_REGION }}
-        #     dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-        #     invalidation: /
-        #     delete-removed: true
-        #     no-cache: true
-        #     private: true
-        #     files-to-include: ".*/*,*/*,**"
+        run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }}
+        
