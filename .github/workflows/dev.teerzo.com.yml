@@ -13,6 +13,7 @@ jobs:
       - name: Build
         run: npm run build
   deploy: 
+    needs: build
     environment: dev
     runs-on: ubuntu-latest
     env:
