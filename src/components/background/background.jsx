@@ -97,6 +97,9 @@ function Scene({ route, ...props }) {
             else if (page === 'about') {
                 return defaultCamera.about;
             }
+            else {
+                return defaultCamera.about;
+            }
         }
         // return {
         //     target: new THREE.Vector3(0, 0, 0),
