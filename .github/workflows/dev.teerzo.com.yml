@@ -3,7 +3,7 @@ on:
   push: 
     branches: [ develop ]
 jobs:
-  build_&_deploy: 
+  build_and_deploy: 
     environment: dev
     runs-on: ubuntu-latest
     env:
