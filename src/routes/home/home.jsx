@@ -1,10 +1,7 @@
-// Packages
-import { useEffect } from 'react';
 
 // Components
-import Nav from '../../components/nav';
-import Page from '../../components/page';
-import Footer from 'components/footer';
+import Page from '@components/page';
+import Footer from '@components/footer';
 
 // Styles 
 import './home.scss';

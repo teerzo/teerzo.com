@@ -1,20 +1,19 @@
 // Packages
-import ReactDOM from 'react-dom'
 import React, { useRef, useState, useEffect } from 'react'
 
 // Components 
-import Nav from '../../components/nav';
-import Page from '../../components/page';
-import CmpImage from 'components/image';
-import Footer from 'components/footer';
-import OutLink from 'components/out-link';
+// import Nav from '@components/nav';
+import Page from '@components/page';
+import CmpImage from '@components/image';
+import Footer from '@components/footer';
+import OutLink from '@components/out-link';
 
 // Images
 // import jungleImg from 'images/jungle.png';
 
 import './projects.scss'
 
-import projectsData from 'data/projects.json';
+import projectsData from '../../data/projects.json';
 
 export default function Projects({ ...props }) {
 
@@ -53,12 +52,12 @@ function ProjectCard({ title, url, img, imgLow, ...props }) {
 
     useEffect(() => {
         //preloading image
-        const low = `${process.env.PUBLIC_URL}/images/${imgLow}`;
+        const low = `/images/${imgLow}`;
         setSrcLow(low);
     }, []);
 
     useEffect(() => {
-        const high = `${process.env.PUBLIC_URL}/images/${img}`;
+        const high = `/images/${img}`;
         setSrc(high);
     }, [srcLow]);
 

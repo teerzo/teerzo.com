@@ -23,8 +23,8 @@ import Text from '../../objects/text';
 import './background.scss';
 
 // Shaders
-import vertexShader from 'shaders/vertexShader';
-import fragmentShader from 'shaders/fragmentShader';
+// import vertexShader from 'shaders/vertexShader';
+// import fragmentShader from 'shaders/fragmentShader';
 
 extend({ CustomLayer });
 
@@ -95,6 +95,9 @@ function Scene({ route, ...props }) {
                 return defaultCamera.projects;
             }
             else if (page === 'about') {
+                return defaultCamera.about;
+            }
+            else {
                 return defaultCamera.about;
             }
         }
@@ -273,8 +276,8 @@ function Planet() {
             <mesh ref={mesh} position={[0, 0, 0]} rotation={[0, Math.PI, 0]} scale={0.5}>
                 <icosahedronGeometry args={[2, 11]} />
                 <shaderMaterial
-                    fragmentShader={fragmentShader}
-                    vertexShader={vertexShader}
+                    // fragmentShader={fragmentShader}
+                    // vertexShader={vertexShader}
                     uniforms={uniforms}
                 // wireframe
                 />

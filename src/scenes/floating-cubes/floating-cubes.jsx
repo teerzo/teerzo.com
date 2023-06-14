@@ -5,10 +5,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
 export default function FloatingCubes(props) {
-
-
-
-
+    
     return (
         <>
             <Box position={[-1.2, 0, 0]} />

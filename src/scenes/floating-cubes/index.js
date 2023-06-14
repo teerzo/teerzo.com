@@ -1,1 +1,1 @@
-export {default} from './floating-cubes.js';
+export {default} from './floating-cubes.jsx';

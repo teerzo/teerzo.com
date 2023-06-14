@@ -1,1 +1,1 @@
-export {default} from './cube-wall.js';
+export {default} from './cube-wall.jsx';

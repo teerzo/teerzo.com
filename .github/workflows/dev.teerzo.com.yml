@@ -3,7 +3,7 @@ on:
   push: 
     branches: [ develop ]
 jobs:
-  run:
+  build_and_deploy: 
     environment: dev
     runs-on: ubuntu-latest
     env:
@@ -12,24 +12,17 @@ jobs:
       CI: false
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
       - name: Install dependencies
-        run: yarn
-
-      - name: Build
-        run: yarn build
-
+        run: npm install
+      - name: Vite Build
+        run: npm run build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.S3_BUCKET_REGION }}
-
-      - name: Deploy dashboard to bucket
-        run: aws s3 sync build/ s3://${{ secrets.S3_BUCKET }}
-
-      # - name: Invalidate dashboard cloudfront
-      #   run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/"
+      - name: Sync dist/ to s3 bucket 
+        run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }}
+      - name: Invalidate cloudfront distribution
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
