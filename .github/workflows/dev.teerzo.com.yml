@@ -24,5 +24,5 @@ jobs:
           aws-region: ${{ secrets.S3_BUCKET_REGION }}
       - name: Sync dist/ to s3 bucket 
         run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }}
-      - name: Invalidate dashboard cloudfront
+      - name: Invalidate cloudfront distribution
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
