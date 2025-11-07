@@ -23,11 +23,12 @@ import { useLocation } from "react-router-dom";
 
 import * as THREE from "three";
 // import { useRef, useReducer, useMemo } from 'react'
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import { BallCollider, Physics, RigidBody } from "@react-three/rapier";
 import { easing } from "maath";
 import { Effects } from "./effects";
+
 
 const accents = ["#ff4060", "#ffcc00", "#20ffa0", "#4060ff"];
 const shuffle = (accent = 0) => [
@@ -51,7 +52,8 @@ const shuffle = (accent = 0) => [
     roughness: 0.1,
     accent: true,
     transparent: true,
-    opacity: 0.5,
+    opacity: 1,
+    // opacity: 0.5,
   },
   { color: accents[accent], roughness: 0.3, accent: true },
   { color: accents[accent], roughness: 0.1, accent: true },
@@ -66,17 +68,33 @@ import "./background.scss";
 
 // extend({ CustomLayer });
 
-export default function Background({ route, ...props }) {
+function BackgroundColour({ theme }) {
+  const { scene, gl } = useThree();
+
+  useEffect(() => {
+    // const targetHex = theme === "light" ? "#f4f9fb" : "#141622";
+    const targetHex = theme === "light" ? "#999999" : "#333333";
+
+     
+    const targetColor = new THREE.Color(targetHex);
+    gl.setClearColor(targetColor);
+    scene.background = targetColor;
+  }, [gl, scene, theme]);
+
+  return null;
+}
+
+export default function Background({ route, theme, ...props }) {
   return (
     <div id="background" className="background">
       {/* <Suspense fallback={null}> */}
-        <Scene route={route} {...props} />
+      <Scene route={route} theme={theme} {...props} />
       {/* </Suspense> */}
     </div>
   );
 }
 
-function Scene({ route, ...props }) {
+function Scene({ route, theme, ...props }) {
   const [accent, click] = useReducer((state) => ++state % accents.length, 0);
   const connectors = useMemo(() => shuffle(accent), [accent]);
 
@@ -109,12 +127,6 @@ function Scene({ route, ...props }) {
   const [target, setTarget] = useState(getPageDefault().target);
   const [cameraPos, setCameraPos] = useState(getPageDefault().position);
 
-  // const [projectsTarget, setProjectsTarget] = useState(defaultCamera.projects.target);
-  // const [aboutTarget, setAboutTarget] = useState(defaultCamera.about.target);
-
-  // const [textProject, setTextProjects] = useState(new THREE.Vector3(0, 0, 0.5))
-  // const [projectsTextRotation, setProjectsTextRotation] = useState(new THREE.Vector3(45, 0, 0))
-
   useEffect(() => {
     changePage();
   }, [page]);
@@ -124,6 +136,15 @@ function Scene({ route, ...props }) {
     setLastPage(page);
     setPage(str);
   }, [location]);
+
+  useEffect(() => {
+    console.log("theme", theme);
+    click();
+
+    setTimeout(() => {
+      click();
+    }, 1000);
+  }, [theme]);
 
   function getPageDefault() {
     if (page !== null) {
@@ -137,41 +158,24 @@ function Scene({ route, ...props }) {
         return defaultCamera.about;
       }
     }
-    // return {
-    //     target: new THREE.Vector3(0, 0, 0),
-    //     position: new THREE.Vector3(0, 0, 0)
-    // }
   }
 
   function changePage() {
     setTarget(getPageDefault().target);
     setCameraPos(getPageDefault().position);
-
-    // if (page === '') {
-    //     setProjectsTarget(new THREE.Vector3(0, 10, 0));
-    //     setAboutTarget(new THREE.Vector3(2, 10, 0));
-    // }
-    // else if (page === 'projects') {
-    //     setProjectsTarget(new THREE.Vector3(0, 0, 0));
-    //     setAboutTarget(new THREE.Vector3(1, 10, 0));
-    // }
-    // else if (page === 'about') {
-    //     setProjectsTarget(new THREE.Vector3(0, 10, 0));
-    //     setAboutTarget(new THREE.Vector3(0, 0, 0));
-    // }
   }
 
   return (
     <Canvas
       flat
       shadows
-        onClick={click}
+      onClick={click}
       dpr={[1, 1.5]}
       gl={{ antialias: false }}
       camera={{ position: [0, 0, 30], fov: 17.5, near: 10, far: 40 }}
       {...props}
     >
-      <color attach="background" args={["#141622"]} />
+      <BackgroundColour theme={theme} />
       <Physics /*debug*/ timeStep="vary" gravity={[0, 0, 0]}>
         <Pointer />
         {connectors.map((props, i) => (
@@ -281,7 +285,7 @@ function Sphere({
   scale,
   r = THREE.MathUtils.randFloatSpread,
   accent,
-  color = "white",
+  color = "red",
   ...props
 }) {
   const api = useRef();

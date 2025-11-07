@@ -1,7 +1,7 @@
 import { useThree, useFrame } from '@react-three/fiber'
 import { EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect, FXAAEffect } from 'postprocessing'
 import { useEffect, useState } from 'react'
-// import { SSGIEffect, VelocityDepthNormalPass } from './realism-effects/v2'
+import { SSGIEffect, VelocityDepthNormalPass } from './realism'
 
 export function Effects() {
   const gl = useThree((state) => state.gl)
@@ -36,10 +36,10 @@ export function Effects() {
     }
 
     const renderPass = new RenderPass(scene, camera)
-    // const velocityDepthNormalPass = new VelocityDepthNormalPass(scene, camera)
+    const velocityDepthNormalPass = new VelocityDepthNormalPass(scene, camera)
     composer.addPass(renderPass)
-    // composer.addPass(velocityDepthNormalPass)
-    // composer.addPass(new EffectPass(camera, new SSGIEffect(composer, scene, camera, { ...config, velocityDepthNormalPass })))
+    composer.addPass(velocityDepthNormalPass)
+    composer.addPass(new EffectPass(camera, new SSGIEffect(composer, scene, camera, { ...config, velocityDepthNormalPass })))
     composer.addPass(new EffectPass(camera, new BloomEffect({ mipmapBlur: true, luminanceThreshold: 0.1, intensity: 0.9, levels: 7 })))
     composer.addPass(new EffectPass(camera, new FXAAEffect(), new ToneMappingEffect()))
 
