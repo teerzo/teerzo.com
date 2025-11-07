@@ -66,7 +66,7 @@
 
     &.open {
         opacity: 1;
-        // pointer-events: auto;
+        // pointer-events: auto ;
     }
 }
 
@@ -79,7 +79,9 @@
 }
 
 .nav-drawer {
-    width: min(22rem, 85vw);
+    // width: min(50rem, 85vw);
+    width: 250px;
+    min-width: 250px;
     height: 100%;
     display: flex;
     flex-direction: column;
