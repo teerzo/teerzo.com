@@ -1,36 +1,26 @@
 
 
-import React, { useEffect, useState } from 'react';
-
-import useWindowSize from '../../helpers/useWindowSize';
+import React from 'react';
 
 import './nav-link.scss';
-import { Link, useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import cx from 'classnames';
 
-
-
-export default function NavLink({ to, ...props }) {
-
+export default function NavLink({ to, children, className, onClick, role, ...rest }) {
     const location = useLocation();
 
-    useEffect(() => {
-        // console.log('location', location);
-    },[location]);
-
-    const classes = cx( 
-        'nav-link', 
-        props.className,
+    const classes = cx(
+        'nav-link',
+        className,
         { 'selected': location.pathname === to }
     );
 
     return (
-        <>
-            <div className={classes}>
-                <Link to={to}> {props.children} </Link>
-            </div>
-        </>
-    )
-
+        <div className={classes} role={role}>
+            <Link to={to} onClick={onClick} {...rest}>
+                {children}
+            </Link>
+        </div>
+    );
 }
