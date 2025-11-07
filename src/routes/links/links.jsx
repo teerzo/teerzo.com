@@ -24,7 +24,7 @@ export default function Links({ ...props }) {
                         <div className="divider"> </div>
                     </div>
                 </Page>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </>
     );

@@ -5,49 +5,25 @@ import { useLocation } from "react-router-dom";
 
 import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 // import jungleImage from '../../images/jungle.png';
-import profileImage from "../../images/profile.png";
-
-import arcRaidersImage from "../../images/arcraiders.jpg";
-import duneImage from "../../images/dune.jpg";
-import swgImage from "../../images/swglegends.png";
+import teerzoImage from "../../images/teerzo-banner.png";
+import arcRaidersImage from "../../images/arcraiders-banner.png";
+import duneImage from "../../images/duneawakening-banner.png";
+import swgImage from "../../images/legends-banner.png";
 
 const NAV_LINK_IMAGES = [
-  { id: "teerzo", src: profileImage, alt: "Teerzo" },
-  { id: "arc", src: arcRaidersImage, alt: "Arc Raiders" },
-  { id: "dune", src: duneImage, alt: "Dune Awakening" },
-  { id: "swg", src: swgImage, alt: "SWG Legends" },
+  { id: "teerzo", src: teerzoImage, alt: "Teerzo", link: "https://teerzo.com" },
+  { id: "arc", src: arcRaidersImage, alt: "Arc Raiders", link: "https://arcraiders.teerzo.com" },
+  { id: "dune", src: duneImage, alt: "Dune Awakening", link: "https://dune.teerzo.com" },
+  { id: "swg", src: swgImage, alt: "SWG Legends", link: "https://swg.teerzo.com" },
 ];
 
-const THEME_STORAGE_KEY = "teerzo-theme";
-
-export default function Nav() {
+export default function Nav({ theme = "dark", onThemeChange, ...props }) {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState("dark");
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    if (storedTheme === "light" || storedTheme === "dark") {
-      setTheme(storedTheme);
-      return;
-    }
-
-    const prefersLight =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: light)").matches;
-    setTheme(prefersLight ? "light" : "dark");
-  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
   }, [location]);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    document.body.classList.remove("theme-light", "theme-dark");
-    document.body.classList.add(`theme-${theme}`);
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
-  }, [theme]);
 
   useEffect(() => {
     if (menuOpen) {
@@ -86,8 +62,11 @@ export default function Nav() {
   }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  }, []);
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    if (onThemeChange) {
+      onThemeChange(nextTheme);
+    }
+  }, [theme, onThemeChange]);
 
   const ThemeIcon = useMemo(() => (theme === "dark" ? FaSun : FaMoon), [theme]);
 
@@ -141,23 +120,25 @@ export default function Nav() {
 
           <div className="nav-drawer-links">
             {NAV_LINK_IMAGES.map((item) => (
-              <div className="nav-image-link-container">
-                <div className="label-container">
-                  <span> {item.alt} </span>
+              <a
+                key={item.id}
+                className="nav-image-link"
+                href={item.link}
+                // target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                <div className="nav-image-link-container" style={{ backgroundImage: `url(${item.src})` }}>
+                  <div className="label-container">
+                    <span> {item.alt} </span>
+                  </div>
                 </div>
-                <a
-                  key={item.id}
-                  className="nav-image-link"
-                  href="https://teerzo.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
-                >
-                  <img src={item.src} alt={item.alt} loading="lazy" />
-                </a>
-              </div>
+              </a>
             ))}
           </div>
+        </div>
+        <div className="nav-overlay-clicker"> 
+            
         </div>
       </div>
     </>
