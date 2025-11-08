@@ -10,26 +10,30 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^10.0.5",
-    "@react-three/fiber": "^9.1.1",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@react-three/rapier": "^2.2.0",
     "classnames": "^2.5.1",
-    "lamina": "^1.1.23",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "lamina": "^1.2.2",
+    "postprocessing": "^6.37.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.5.0",
-    "three": "^0.175.0",
+    "react-router-dom": "^7.9.5",
+    "three": "^0.171.0",
+    "three-stdlib": "^2.36.0",
     "troika-three-text": "^0.52.4"
   },
   "devDependencies": {
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.24.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "sass": "^1.86.3",
-    "vite": "^6.2.5"
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "sass": "^1.93.3",
+    "vite": "^7.2.2"
   }
 }

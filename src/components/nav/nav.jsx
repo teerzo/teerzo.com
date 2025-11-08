@@ -1,123 +1,146 @@
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
+import "./nav.scss";
+import { useLocation } from "react-router-dom";
 
-import React, { useEffect, useState } from 'react';
+import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
+// import jungleImage from '../../images/jungle.png';
+import teerzoImage from "../../images/teerzo-banner.png";
+import arcRaidersImage from "../../images/arcraiders-banner.png";
+import duneImage from "../../images/duneawakening-banner.png";
+import swgImage from "../../images/legends-banner.png";
 
-import useWindowSize from '../../helpers/useWindowSize';
+const NAV_LINK_IMAGES = [
+  { id: "teerzo", src: teerzoImage, alt: "Teerzo", link: "https://teerzo.com" },
+  { id: "arc", src: arcRaidersImage, alt: "Arc Raiders", link: "https://arcraiders.teerzo.com" },
+  { id: "dune", src: duneImage, alt: "Dune Awakening", link: "https://dune.teerzo.com" },
+  { id: "swg", src: swgImage, alt: "SWG Legends", link: "https://swg.teerzo.com" },
+];
 
-import './nav.scss';
-import { Link, useLocation } from 'react-router-dom';
+export default function Nav({ theme = "dark", onThemeChange, ...props }) {
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-import NavLink from '../nav-link';
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
 
-import { FaStream, FaBars, FaTimes } from 'react-icons/fa';
-
-
-export default function Nav(props) {
-    const location = useLocation();
-    const size = useWindowSize();
-    const [mobile, setMobile] = useState(false);
-    const [open, setOpen] = useState(false);
-
-
-    useEffect(() => {
-        if (size.width <= 1000) {
-            setMobile(true);
+  useEffect(() => {
+    if (menuOpen) {
+      const handleKeyDown = (event) => {
+        if (event.key === "Escape") {
+          setMenuOpen(false);
         }
-        else {
-            setMobile(false);
-            setOpen(false);
-        }
-    }, [size])
+      };
 
-    useEffect(() => {
-        setOpen(false);
-    }, [location])
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
 
-
-    function handleChange() {
-        setOpen(!open);
+      return () => {
+        document.body.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     }
-    
 
-    return (
-        <>
-            {mobile ?
-                <>
-                    <div className='nav'>
-                        <div className="nav-links mobile">
-                            <FakeSpace />
-                            <NavLink to="/" className="title"> TEERZO </NavLink>
-                            {/* <TitleLink to="/" > TEERZO </TitleLink> */}
-                            {/* <NavLink to='/'> TEERZO </NavLink> */}
+    document.body.style.overflow = "";
 
-                            <Hamburger open={open} onChange={handleChange} />
-                        </div>
-                        {open ?
-                            <div className="nav-menu">
-                                <br />
-                                <NavLink to='/'> HOME </NavLink>
-                                <br />
-                                <NavLink to='/projects'> PROJECTS </NavLink>
-                                <NavLink to="/about"> ABOUT </NavLink>
+    return undefined;
+  }, [menuOpen]);
 
-                            </div>
-                            :
-                            <> </>
-                        }
-                    </div>
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((prev) => !prev);
+  }, []);
 
-                </>
-                :
-                <div className='nav'>
-                    <div className="nav-links">
-                        <NavLink to='/projects'> PROJECTS </NavLink>
-                        <NavLink to="/" className="title"> TEERZO </NavLink>
-                        <NavLink to="/about"> ABOUT </NavLink>
-                        {/* <TitleLink to="/" > TEERZO </TitleLink> */}
-                    </div>
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+  }, []);
+
+  const handleOverlayClick = useCallback((event) => {
+    if (event.target === event.currentTarget) {
+      setMenuOpen(false);
+    }
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    if (onThemeChange) {
+      onThemeChange(nextTheme);
+    }
+  }, [theme, onThemeChange]);
+
+  const ThemeIcon = useMemo(() => (theme === "dark" ? FaSun : FaMoon), [theme]);
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="nav-left">
+          <button
+            className="menu-trigger"
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-controls="primary-navigation"
+            aria-expanded={menuOpen}
+            onClick={toggleMenu}
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+
+        <div className="nav-right">
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            onClick={toggleTheme}
+          >
+            <ThemeIcon />
+          </button>
+        </div>
+      </nav>
+
+      <div
+        id="primary-navigation"
+        className={`nav-overlay${menuOpen ? " open" : ""}`}
+        role="presentation"
+        aria-hidden={!menuOpen}
+        onClick={handleOverlayClick}
+      >
+        <div className="nav-drawer" role="menu">
+          <div className="nav-drawer-header">
+            <span className="nav-drawer-title">Menu</span>
+            <button
+              className="nav-drawer-close"
+              type="button"
+              aria-label="Close navigation menu"
+              onClick={closeMenu}
+            >
+              <FaTimes />
+            </button>
+          </div>
+
+          <div className="nav-drawer-links">
+            {NAV_LINK_IMAGES.map((item) => (
+              <a
+                key={item.id}
+                className="nav-image-link"
+                href={item.link}
+                // target="_blank"
+                rel="noopener noreferrer"
+                onClick={closeMenu}
+              >
+                <div className="nav-image-link-container" style={{ backgroundImage: `url(${item.src})` }}>
+                  <div className="label-container">
+                    <span> {item.alt} </span>
+                  </div>
                 </div>
-            }
-
-        </>
-    )
-}
-
-function TitleLink({ to, ...props }) {
-    return (
-        <>
-            <div className="title-link">
-                <Link to={to}> {props.children} </Link>
-            </div>
-        </>
-    )
-}
-
-
-function FakeSpace() {
-    return (
-        <div className="fake-space">
-            <FaBars className="icon" />
+              </a>
+            ))}
+          </div>
         </div>
-    )
-}
-
-
-function Hamburger({ onChange, open, ...props }) {
-
-    function handleClick() {
-        if (onChange) {
-            onChange();
-        }
-    }
-
-    return (
-        <div className="hamburger" onClick={handleClick}>
-            {open ?
-                <FaTimes className="icon" />
-                :
-                <FaBars className="icon" />
-            }
-
+        <div className="nav-overlay-clicker"> 
+            
         </div>
-    )
+      </div>
+    </>
+  );
 }

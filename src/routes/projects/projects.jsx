@@ -36,7 +36,7 @@ export default function Projects({ ...props }) {
                         <div className="divider"></div>
                     </div>
                 </Page>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </>
     );
