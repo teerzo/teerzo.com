@@ -31,33 +31,7 @@ import { Effects } from "./effects";
 
 
 const accents = ["#ff4060", "#ffcc00", "#20ffa0", "#4060ff"];
-const shuffle = (accent = 0) => [
-  { color: "#444", roughness: 0.1, metalness: 0.5 },
-  { color: "#444", roughness: 0.1, metalness: 0.5 },
-  { color: "#444", roughness: 0.1, metalness: 0.5 },
-  { color: "white", roughness: 0.1, metalness: 0.1 },
-  { color: "white", roughness: 0.1, metalness: 0.1 },
-  { color: "white", roughness: 0.1, metalness: 0.1 },
-  { color: accents[accent], roughness: 0.1, accent: true },
-  { color: accents[accent], roughness: 0.1, accent: true },
-  { color: accents[accent], roughness: 0.1, accent: true },
-  { color: "#444", roughness: 0.1 },
-  { color: "#444", roughness: 0.3 },
-  { color: "#444", roughness: 0.3 },
-  { color: "white", roughness: 0.1 },
-  { color: "white", roughness: 0.2 },
-  { color: "white", roughness: 0.1 },
-  {
-    color: accents[accent],
-    roughness: 0.1,
-    accent: true,
-    transparent: true,
-    opacity: 1,
-    // opacity: 0.5,
-  },
-  { color: accents[accent], roughness: 0.3, accent: true },
-  { color: accents[accent], roughness: 0.1, accent: true },
-];
+
 
 // Styles
 import "./background.scss";
@@ -96,6 +70,33 @@ export default function Background({ route, theme, ...props }) {
 
 function Scene({ route, theme, ...props }) {
   const [accent, click] = useReducer((state) => ++state % accents.length, 0);
+
+  const shuffle = (accent = 0) => [
+    { color: theme === "light" ? "#444" : "white", roughness: 0.1, metalness: 0.5 },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.1, metalness: 0.5 },
+    { color: theme === "light" ?"#444" : "white",  roughness: 0.1, metalness: 0.5 },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.1, metalness: 0.1 },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.1, metalness: 0.1 },
+    { color: accents[accent], roughness: 0.1, accent: true },
+    { color: accents[accent], roughness: 0.1, accent: true },
+    { color: accents[accent], roughness: 0.1, accent: true },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.1 },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.3 },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.3 },
+    { color: theme === "light" ? "#444" : "white",  roughness: 0.1 },
+    { color: theme === "light" ? "#444" : "white", roughness: 0.2 },
+    { color: theme === "light" ? "#444" : "white", roughness: 0.1 },
+    {
+      color: accents[accent],
+      roughness: 0.1,
+      accent: true,
+      transparent: true,
+      opacity: 1,
+      // opacity: 0.5,
+    },
+    { color: accents[accent], roughness: 0.3, accent: true },
+    { color: accents[accent], roughness: 0.1, accent: true },
+  ];
   const connectors = useMemo(() => shuffle(accent), [accent]);
 
   let location = useLocation();
